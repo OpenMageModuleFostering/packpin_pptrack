@@ -19,9 +19,9 @@ class Packpin_Pptrack_Block_Trackings extends Mage_Core_Block_Template
     {
         $collection = Mage::getModel('pptrack/track')
             ->getCollection()
-            ->addFieldToFilter('order_id', array('eq' => $order->getId()))
             ->addFieldToFilter('shipment_id', array('eq' => $track->getId()));
         $this->_trackModel = $collection->getFirstItem();
+
 
         if ($this->_trackModel->getId())
             return true;

@@ -14,10 +14,6 @@ class Packpin_Pptrack_Block_Crosssell extends Mage_Catalog_Block_Product_Abstrac
 //            $crossSellCollection->setPage(1, 5);
             foreach ($crossSellCollection as $crossSellItem) {
                 $crossSellingItemsArray[] = Mage::getModel('catalog/product')->load($crossSellItem->getId());
-                //multiple products in 1 order
-                if (count($crossSellingItemsArray) >= $limit) {
-                    return $crossSellingItemsArray;
-                }
             }
         }
         return $crossSellingItemsArray;
