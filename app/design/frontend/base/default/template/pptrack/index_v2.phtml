@@ -122,7 +122,7 @@ $customImage = $imageType === 'custom' && !empty($image) ? Mage::getBaseUrl('med
                 <div class="pptrack-v2-block-inner">
                     <div class="pptrack-v2-title1"><?php echo Mage::helper('pptrack')->__('ESTIMATED DELIVERY DATE & DETAILS'); ?></div>
                     <?php if ($model->apiResponseData && isset($model->apiResponseData['estimated_delivery']) && $model->apiResponseData['estimated_delivery']) : ?>
-                    <?php $dateTime = new DateTime($this->apiResponseData['estimated_delivery']);
+                    <?php $dateTime = new DateTime($model->apiResponseData['estimated_delivery']);
                             $day = $dateTime->format('d');
                             $weekday = $dateTime->format('l');
                             $month = $dateTime->format('M');
