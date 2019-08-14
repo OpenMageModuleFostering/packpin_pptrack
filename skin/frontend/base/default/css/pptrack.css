@@ -425,3 +425,20 @@ ul.pptrack-products-grid > li img {
     background-color: #f2dede;
     border-color: #ebccd1;
 }
+.pptrack-boxmodel {
+
+}
+.pptrack-boxmodel * {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+.pptrack-boxmodel *:before,
+.pptrack-boxmodel *:after {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+.pptrack-form {
+    margin-bottom: 15px;
+}

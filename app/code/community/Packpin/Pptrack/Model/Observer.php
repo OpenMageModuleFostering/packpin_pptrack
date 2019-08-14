@@ -123,6 +123,12 @@ class Packpin_Pptrack_Model_Observer
         if (!$carrierCode)
             return false;
 
+        // replace custom carrier with real one if needed
+        if ($trackData['carrier_code'] === 'custom') {
+            $track->setCarrierCode(Packpin_Pptrack_Model_Carrier::CODE_PREFIX . $carrierCode);
+            $track->save();
+        }
+
         $trackingCode = $this->_getTrackingCode($trackData);
         $email = trim($orderData['customer_email']) ? $orderData['customer_email'] : null;
         $phone = trim($addressData['telephone']) ? $addressData['telephone'] : null;
@@ -135,14 +141,6 @@ class Packpin_Pptrack_Model_Observer
         $trackModel->setSubmitted(Packpin_Pptrack_Model_Track::TYPE_SUBMITTED_PENDING);
 
         if (!$trackModel->getId()) {
-            $trackModel->setOrderId($order->getId());
-            $trackModel->setShipmentId($track->getId());
-            $trackModel->setCode($trackingCode);
-            $trackModel->setCarrierCode($carrierCode);
-            $trackModel->setCarrierName($trackData['title']);
-            $trackModel->setPhone($phone);
-            $trackModel->setEmail($email);
-
             //tracking attributes
             $trackModel->setPostalCode($addressData['postcode']);
             $trackModel->setDestinationCountry($addressData['country_id']);
@@ -150,6 +148,14 @@ class Packpin_Pptrack_Model_Observer
 
             $trackModel->setStatus(Packpin_Pptrack_Model_Track::STATUS_PENDING);
         }
+
+        $trackModel->setOrderId($order->getId());
+        $trackModel->setShipmentId($track->getId());
+        $trackModel->setCode($trackingCode);
+        $trackModel->setCarrierCode($carrierCode);
+        $trackModel->setCarrierName($trackData['title']);
+        $trackModel->setPhone($phone);
+        $trackModel->setEmail($email);
 
         $trackModel->save();
 

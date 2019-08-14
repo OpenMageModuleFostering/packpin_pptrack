@@ -125,8 +125,8 @@ class Packpin_Pptrack_Block_Adminhtml_Dashboard extends Mage_Adminhtml_Block_Das
 
         $stats['visits'] = Mage::getModel('pptrack/visit')
             ->getCollection()
-            ->addFieldToFilter("DATE(created_at)", array('gteq' => $start))
-            ->addFieldToFilter("DATE(created_at)", array('lteq' => $end))
+            ->addFieldToFilter(new Zend_Db_Expr("DATE(created_at)"), array('gteq' => $start))
+            ->addFieldToFilter(new Zend_Db_Expr("DATE(created_at)"), array('lteq' => $end))
             ->getSize();
 
         $stats['average'] = $stats['trackings'] ? $stats['visits'] / $stats['trackings'] : 0;
@@ -155,8 +155,8 @@ class Packpin_Pptrack_Block_Adminhtml_Dashboard extends Mage_Adminhtml_Block_Das
 
         $collection = Mage::getModel('pptrack/visit')
             ->getCollection()
-            ->addFieldToFilter("DATE(created_at)", array('gteq' => $start))
-            ->addFieldToFilter("DATE(created_at)", array('lteq' => $end));
+            ->addFieldToFilter(new Zend_Db_Expr("DATE(created_at)"), array('gteq' => $start))
+            ->addFieldToFilter(new Zend_Db_Expr("DATE(created_at)"), array('lteq' => $end));
         $collection->getSelect()
             ->group(new Zend_Db_Expr('DATE(created_at)'))
             ->columns(new Zend_Db_Expr('DATE(created_at) as date, COUNT(*) as count'));

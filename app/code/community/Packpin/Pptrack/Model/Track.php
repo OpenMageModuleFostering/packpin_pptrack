@@ -299,6 +299,13 @@ class Packpin_Pptrack_Model_Track extends Mage_Core_Model_Abstract
     {
         $order = Mage::getModel('sales/order')->load($this->order_id);
 
+//        $orders = Mage::getModel('sales/order')->getCollection()
+//            ->setOrder('created_at','DESC')
+//            ->addFieldToFilter('id', array('eq' => $this->order_id))
+//            ->setPageSize(1)
+//            ->setCurPage(1);
+//        $order = $orders->getFirstItem();
+
         $url = Mage::getUrl('pptrack') . '?email=' . $order->customer_email . '&order=' . $order->getIncrementId();
 
         return $url;
