@@ -161,7 +161,7 @@ class Packpin_Pptrack_Model_Carrier extends Mage_Core_Model_Abstract
         //try to identify by carrier title
         if ($carrierTitle) {
             foreach ($carrierList as $code => $title) {
-                if (preg_match("#$carrierTitle#ui", $title, $m)) {
+                if (stripos($carrierTitle, $title) !== false) {
                     return $code;
                 }
             }

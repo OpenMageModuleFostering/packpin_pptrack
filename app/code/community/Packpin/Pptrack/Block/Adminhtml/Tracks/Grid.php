@@ -56,13 +56,13 @@ class Packpin_Pptrack_Block_Adminhtml_Tracks_Grid extends Mage_Adminhtml_Block_W
                 'index' => 'carrier_name'
             )
         );
-        $this->addColumn('status',
-            array(
-                'header'=> $this->__('Status'),
-                'index' => 'status',
-                'filter_index' => 'main_table.status',
-            )
-        );
+//        $this->addColumn('status',
+//            array(
+//                'header'=> $this->__('Status'),
+//                'index' => 'status',
+//                'filter_index' => 'main_table.status',
+//            )
+//        );
         $this->addColumn('created_at', array(
             'header' => $this->__('Created at'),
             'type' => 'datetime',
