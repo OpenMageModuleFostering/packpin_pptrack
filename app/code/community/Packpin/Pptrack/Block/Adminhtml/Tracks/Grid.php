@@ -29,7 +29,8 @@ class Packpin_Pptrack_Block_Adminhtml_Tracks_Grid extends Mage_Adminhtml_Block_W
         );
         $collection->join(
             array('b' => 'sales/shipment_track'),
-            'main_table.shipment_id=b.entity_id'
+            'main_table.shipment_id=b.entity_id',
+            array('parent_id', 'created_at')
         );
 
         $this->setCollection($collection);
@@ -58,18 +59,21 @@ class Packpin_Pptrack_Block_Adminhtml_Tracks_Grid extends Mage_Adminhtml_Block_W
         $this->addColumn('status',
             array(
                 'header'=> $this->__('Status'),
-                'index' => 'status'
+                'index' => 'status',
+                'filter_index' => 'main_table.status',
             )
         );
         $this->addColumn('created_at', array(
             'header' => $this->__('Created at'),
             'type' => 'datetime',
             'index' => 'created_at',
+            'filter_index' => 'b.created_at'
         ));
         $this->addColumn('order_id',
             array(
                 'header'=> $this->__('Order #'),
-                'index' => 'order_id'
+                'index' => 'order_id',
+                'filter_index' => 'main_table.order_id',
             )
         );
         $this->addColumn('shipping_name',
@@ -108,6 +112,9 @@ class Packpin_Pptrack_Block_Adminhtml_Tracks_Grid extends Mage_Adminhtml_Block_W
 
         $this->addExportType('*/*/exportTracksCsv', $helper->__('CSV'));
         $this->addExportType('*/*/exportTracksExcel', $helper->__('Excel XML'));
+
+        $this->setDefaultSort('created_at');
+        $this->setDefaultDir('desc');
 
         return parent::_prepareColumns();
     }
