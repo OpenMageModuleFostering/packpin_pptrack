@@ -1,0 +1,17 @@
+<?php
+/**
+ * @see Packpin_Pptrack_Block_Adminhtml_System_Config_Fieldset_Hint
+ */
+?>
+<?php if ($this->haveTempKey()) : ?>
+<div class="packpin-notice">
+    <h4>
+        <?php if (!$this->getDaysLeft()) : ?>
+            <span class="packpin-notice-date"><?php echo Mage::helper('pptrack')->__('Your temporary API key has expired!') ?></span>
+        <?php else : ?>
+            <?php echo Mage::helper('pptrack')->__('Your temporary API key will expire in') ?>
+            <span class="packpin-notice-date"><?php echo sprintf(Mage::helper('pptrack')->__('%s days'), $this->getDaysLeft()) ?>!</span>
+        <?php endif; ?>
+    </h4>
+</div>
+<?php endif; ?>

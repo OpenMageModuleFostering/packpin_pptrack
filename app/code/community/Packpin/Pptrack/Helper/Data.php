@@ -22,6 +22,7 @@ class Packpin_Pptrack_Helper_Data extends Mage_Core_Helper_Abstract
     const API_PATH_TRACKING_INFO = 'trackings/%s/%s';
     const API_PATH_CONNECTORS = 'connectors';
     const API_PATH_TEST = 'test/1';
+    const API_PATH_GENERATE_TEMP_KEY = 'genkey';
 
 
     const API_ROLE_NAME = 'packpin_connection';
@@ -293,6 +294,29 @@ class Packpin_Pptrack_Helper_Data extends Mage_Core_Helper_Abstract
     public function getExtensionVersion()
     {
         return (string) Mage::getConfig()->getNode()->modules->Packpin_Pptrack->version;
+    }
+
+    /**
+     * Generates temporary API key for fresh plugin install
+     *
+     * @return string
+     */
+    public function generateTempKey()
+    {
+        $url = self::API_PATH_GENERATE_TEMP_KEY;
+        $body = array(
+            'name' => Mage::getStoreConfig('trans_email/ident_general/name'),
+            'email' => Mage::getStoreConfig('trans_email/ident_general/email'),
+        );
+
+        $res = $this->_apiRequest($url, 'POST', $body);
+        if ($res) {
+            $info = json_decode($res, true);
+            if (isset($info['body']['key']))
+                return $info['body']['key'];
+        }
+
+        return false;
     }
 
 }

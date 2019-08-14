@@ -17,6 +17,13 @@
             <show_in_website>1</show_in_website>
             <show_in_store>1</show_in_store>
             <groups>
+                <hint>
+                    <frontend_model>pptrack/adminhtml_system_config_fieldset_hint</frontend_model>
+                    <sort_order>0</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                </hint>
                 <settings translate="label">
                     <expanded>1</expanded>
                     <label>General settings</label>
@@ -38,7 +45,7 @@
                         <api_key translate="label">
                             <label><![CDATA[ API key <strong style="color:red">*</strong>]]></label>
                             <frontend_type>text</frontend_type>
-                            <sort_order>10</sort_order>
+                            <sort_order>5</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
@@ -60,6 +67,22 @@
                             <show_in_website>0</show_in_website>
                             <show_in_store>0</show_in_store>
                         </last_carrier_update>
+                        <temp_api_key>
+                            <label>Is key being used a temporary one</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>104</sort_order>
+                            <show_in_default>0</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </temp_api_key>
+                        <temp_key_installed>
+                            <label>Unix time when temp key has been installed</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>105</sort_order>
+                            <show_in_default>0</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </temp_key_installed>
                         <upgrade_note>
                             <label><![CDATA[<strong>How to setup</strong>]]></label>
                             <frontend_type>note</frontend_type>
@@ -70,11 +93,12 @@
                             <comment>
                                 <![CDATA[
 									<ol>
+										<li style="margin-bottom:10px !important;"><b>We will generate a temporary API key for you during installation. </b></li>
+										<li style="margin-bottom:10px !important;">In order to use all the features, please follow these steps:</li>
 										<li style="margin-bottom:10px !important;">1. Sign up at <a href="https://panel.packpin.com/" target="_blank">panel.packpin.com</a></li>
 										<li style="margin-bottom:10px !important;">2. Go to <a href="https://panel.packpin.com/api_keys" taget="_blank">"API keys"</a> and generate new key</li>
 										<li style="margin-bottom:10px !important;">3. Copy API key and paste to the field below</li>
-										<li style="margin-bottom:10px !important;">4. Change status to "Enabled" and click "Save Config"</li>
-										<li>5. Now the plugin is active and running</li>
+										<li>4. Now the plugin is active and running</li>
 									</ol>
 								]]>
                             </comment>

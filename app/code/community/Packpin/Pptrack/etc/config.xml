@@ -2,7 +2,7 @@
 <config>
     <modules>
         <Packpin_Pptrack>
-            <version>1.0.2</version>
+            <version>1.1.0</version>
         </Packpin_Pptrack>
     </modules>
     <frontend>
@@ -223,6 +223,9 @@
     </adminhtml>
     <default>
         <pp_section_setttings>
+            <settings>
+                <status>1</status>
+            </settings>
             <crosssell>
                 <cross_sell_page>1</cross_sell_page>
                 <cross_sell_email>1</cross_sell_email>

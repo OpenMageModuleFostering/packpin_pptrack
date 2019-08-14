@@ -11,3 +11,12 @@ ul.tabs dd:last-child a.packpin-settings span,
 ul.tabs dd:last-child a.packpin-settings:hover span {
     border-bottom: none;
 }
+.packpin-notice {
+    background: #eaf0ee;
+    border: 1px solid #cccccc;
+    margin-bottom: 10px;
+    padding: 11px 0 0 10px;
+}
+.packpin-notice-date {
+    color: red;
+}

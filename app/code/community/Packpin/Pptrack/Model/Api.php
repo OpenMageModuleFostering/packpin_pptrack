@@ -33,6 +33,13 @@ class Packpin_Pptrack_Model_Api extends Mage_Api_Model_Resource_Abstract
 
         $trackModel = Mage::getModel('pptrack/track')
             ->loadByCarrierAndCode($carrierCode, $trackingCode);
+
+        //maybe changed to custom by some API's (for older versions)
+        if (!$trackModel->getId()) {
+            $trackModel = Mage::getModel('pptrack/track')
+                ->loadByCarrierAndCode('custom', $trackingCode);
+        }
+
         if ($trackModel->getId()) {
             $order = Mage::getModel('sales/order')->load($trackModel->getOrderId());
             $store = $order->getStore();
