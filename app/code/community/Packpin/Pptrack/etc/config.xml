@@ -2,7 +2,7 @@
 <config>
     <modules>
         <Packpin_Pptrack>
-            <version>1.7.2</version>
+            <version>1.7.1</version>
         </Packpin_Pptrack>
     </modules>
     <frontend>
@@ -114,12 +114,8 @@
             </pptrack_adminhtml>
             <adminhtml>
                 <rewrite>
-                    <sales_order_shipment_view_tracking>
-                        Packpin_Pptrack_Block_Adminhtml_Sales_Order_Shipment_View_Tracking
-                    </sales_order_shipment_view_tracking>
-                    <sales_order_shipment_create_tracking>
-                        Packpin_Pptrack_Block_Adminhtml_Sales_Order_Shipment_Create_Tracking
-                    </sales_order_shipment_create_tracking>
+                    <sales_order_shipment_view_tracking>Packpin_Pptrack_Block_Adminhtml_Sales_Order_Shipment_View_Tracking</sales_order_shipment_view_tracking>
+                    <sales_order_shipment_create_tracking>Packpin_Pptrack_Block_Adminhtml_Sales_Order_Shipment_Create_Tracking</sales_order_shipment_create_tracking>
                 </rewrite>
             </adminhtml>
         </blocks>
