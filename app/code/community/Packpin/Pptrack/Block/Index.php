@@ -36,7 +36,7 @@ class Packpin_Pptrack_Block_Index extends Mage_Core_Block_Template
             //get track models
             if ($this->email && $this->orderNumber) {
                 $order = Mage::getModel('sales/order')->loadByIncrementId($this->orderNumber);
-                if (!$order) {
+                if (!$order->getId()) {
                     $this->msg = Mage::helper('pptrack')->__('Order not found');
                 }
                 elseif ($order->customer_email != $this->email) {
