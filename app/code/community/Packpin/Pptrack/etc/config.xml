@@ -2,7 +2,7 @@
 <config>
     <modules>
         <Packpin_Pptrack>
-            <version>1.3.4</version>
+            <version>1.4.0</version>
         </Packpin_Pptrack>
     </modules>
     <frontend>
@@ -284,6 +284,9 @@
                 <cross_sell_page_type>products</cross_sell_page_type>
                 <cross_sell_email_type>products</cross_sell_email_type>
             </crosssell>
+            <advanced>
+                <trigger_shipped_email>0</trigger_shipped_email>
+            </advanced>
         </pp_section_setttings>
         <pp_section_notification_emails>
             <info_received>

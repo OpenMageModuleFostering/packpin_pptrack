@@ -108,7 +108,8 @@ class Packpin_Pptrack_Model_Observer
             return false;
 
         $track = $observer->getEvent()->getTrack();
-        $order = $track->getShipment()->getOrder();
+        $shipment = $track->getShipment();
+        $order = $shipment->getOrder();
 
 
         $trackData = $track->getData();
@@ -151,6 +152,28 @@ class Packpin_Pptrack_Model_Observer
         }
 
         $trackModel->save();
+
+        //send email?
+        try {
+            $send = Mage::getStoreConfig('pp_section_setttings/advanced/trigger_shipped_email');
+            if ($email && $send) {
+                $cache = Mage::app()->getCache();
+                $key = md5($email . $trackingCode);
+                $lifetime = 60 * 60 * 24;
+                $res = $cache->load($key);
+                if (!$res) {
+                    $shipment->sendEmail(true, '');
+                    $shipment->setEmailSent(true);
+
+
+                    $cache->save('sent', $key, array('packpin_cache_emails'), $lifetime);
+                }
+            }
+        }
+        catch (Exception $e) {
+
+        }
+
         $trackModel->updateApi();
     }
 
