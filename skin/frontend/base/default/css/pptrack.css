@@ -5,6 +5,7 @@
 .pptrack-wrapper {
     -webkit-font-smoothing: antialiased;
     color: #676669;
+    margin-bottom: 20px;
 }
 .pptrack-wrapper h3 {
     color: #676669;
@@ -376,4 +377,51 @@ ul.pptrack-products-grid > li img {
 }
 @media (max-width: 480px) {
 
+}
+.pptrack-row {
+    margin-right: -15px;
+    margin-left: -15px;
+}
+
+.pptrack-row:before,
+.pptrack-row:after {
+    display: table;
+    content: " ";
+}
+
+.pptrack-row:after {
+    clear: both;
+}
+
+.pptrack-form-controls {
+    position: relative;
+    min-height: 1px;
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-bottom: 15px;
+}
+
+@media (min-width: 768px) {
+    .pptrack-form-controls {
+        float: left;
+        width: 50%;
+    }
+}
+
+.pptrack-label {
+    display: block;
+}
+.pptrack-input {
+    display: block;
+    width: 100% !important;
+}
+
+.pptrack-info {
+    padding: 15px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    border-radius: 4px;
+    color: #a94442;
+    background-color: #f2dede;
+    border-color: #ebccd1;
 }

@@ -1,17 +1,4 @@
 <?php
-if ($this->newTemplate) {
-    echo $this->setTemplate('pptrack/index_new.phtml')->toHtml();
-
-    return false;
-}
-
-
-if ($this->model)
-    $model = $this->model;
-else
-    $model = Mage::registry('model');
-
-$shippingInfo = $model->getShippingInfo();
 $_helper = $this->helper('catalog/output');
 ?>
 
@@ -39,7 +26,35 @@ if (Mage::getStoreConfig('pp_section_setttings/crosssell/cross_sell_page')) {
 }
 ?>
 
-<div style="clear:both;"></div>
+<div class="clearfix"></div>
+<h2><?php echo Mage::helper('pptrack')->__('Track your order'); ?></h2>
+<div class="clearfix"></div>
+<form method="get" action="">
+    <div class="pptrack-row">
+        <div class="pptrack-form-controls">
+            <label class="pptrack-label" for="pp_email"><?php echo Mage::helper('pptrack')->__('Your email'); ?></label>
+            <input value="<?php echo $this->email ?>" id="pp_email" class="pptrack-input" name="email" type="text" required>
+        </div>
+        <div class="pptrack-form-controls">
+            <label class="pptrack-label" for="pp_order"><?php echo Mage::helper('pptrack')->__('Order number'); ?></label>
+            <input value="<?php echo $this->orderNumber ?>" id="pp_order" class="pptrack-input" name="order"
+                   type="text" required>
+        </div>
+    </div>
+    <button class="btn button pptrack-btn" type="submit"><?php echo Mage::helper('pptrack')->__('Submit'); ?></button>
+</form>
+<?php if ($this->msg) : ?>
+<div class="pptrack-info">
+    <?php echo $this->msg ?>
+</div>
+<?php endif; ?>
+
+<?php foreach($this->trackModels as $model) : ?>
+<?php
+    $shippingInfo = $model->getShippingInfo();
+?>
+<br>
+<div class="clearfix"></div>
 <?php if (!$model->getStatus()): ?>
     <br>
     <br>
@@ -47,11 +62,11 @@ if (Mage::getStoreConfig('pp_section_setttings/crosssell/cross_sell_page')) {
     <br>
 <?php else: ?>
 
-    <div class="pptrack-wrapper">
-        <h2><?php echo Mage::helper('pptrack')->__('Shipment Information'); ?></h2>
+    <div class="pptrack-wrapper clearfix">
+        <h2><?php echo count($this->trackModels) == 1 ? Mage::helper('pptrack')->__('Shipment Information') : Mage::helper('pptrack')->__('Package:') . ' ' . strtoupper($model->code); ?></h2>
         <br/>
 
-        <div class="pptrack-progress">
+        <div id="#<?php echo strtoupper($model->code) ?>" class="pptrack-progress">
             <div class="pptrack-progress-bar-wrapper">
                 <div class="pptrack-progress-bar-wrapper">
                     <ul class="pptrack-progress-bar <?php if ($model->getStatus() == 'delivered') echo "pptrack-progress-bar-done"; ?>">
@@ -92,7 +107,11 @@ if (Mage::getStoreConfig('pp_section_setttings/crosssell/cross_sell_page')) {
                             <br/><?php echo date("H:i:s", $model->created_at) ?></div>
                         <div class="pptrack-info-row-details-wrapper">
                             <div class="pptrack-info-row-details">
-                                <?php echo Mage::helper('pptrack')->__("Package prepared for dispatch") ?>
+                                <?php if ($model->status == Packpin_Pptrack_Model_Track::STATUS_PENDING) : ?>
+                                    <?php echo Mage::helper('pptrack')->__("Package status pending"); ?>
+                                <?php else : ?>
+                                    <?php echo Mage::helper('pptrack')->__("Package prepared for dispatch"); ?>
+                                <?php endif; ?>
                             </div>
                         </div>
                         <div style="clear:both;display:table;"></div>
@@ -173,3 +192,4 @@ if (Mage::getStoreConfig('pp_section_setttings/crosssell/cross_sell_page')) {
         </div>
     </div>
 <?php endif; ?>
+<?php endforeach; ?>

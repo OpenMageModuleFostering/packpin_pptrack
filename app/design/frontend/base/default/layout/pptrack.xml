@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<layout version="1.3.1">
+<layout version="1.5.0">
     <pptrack_index_index>
         <reference name="root">
             <action method="setTemplate">

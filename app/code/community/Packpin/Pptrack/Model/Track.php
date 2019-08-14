@@ -168,6 +168,11 @@ class Packpin_Pptrack_Model_Track extends Mage_Core_Model_Abstract
         }
     }
 
+    public function updateApiData()
+    {
+        $this->_fetchData();
+    }
+
     /**
      * Update Track info
      *
@@ -292,7 +297,9 @@ class Packpin_Pptrack_Model_Track extends Mage_Core_Model_Abstract
      */
     public function getDetailsUrl()
     {
-        $url = Mage::getUrl('pptrack') . '?h=' . $this->hash;
+        $order = Mage::getModel('sales/order')->load($this->order_id);
+
+        $url = Mage::getUrl('pptrack') . '?email=' . $order->customer_email . '&order=' . $order->getIncrementId();
 
         return $url;
     }

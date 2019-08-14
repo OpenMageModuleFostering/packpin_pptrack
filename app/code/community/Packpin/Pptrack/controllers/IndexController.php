@@ -4,15 +4,6 @@ class Packpin_Pptrack_IndexController extends Mage_Core_Controller_Front_Action
 {
     public function indexAction()
     {
-        $model = Mage::getModel('pptrack/track');
-
-        $hash = Mage::app()->getRequest()->getParam('h');
-        if ($hash) {
-            $model->loadInfoByHash($hash);
-        }
-
-        Mage::register('model', $model);
-
         $this->loadLayout();
         $this->getLayout()->getBlock("head")->setTitle(Mage::helper('pptrack')->__("Shipment status"));
         $breadcrumbs = $this->getLayout()->getBlock("breadcrumbs");
