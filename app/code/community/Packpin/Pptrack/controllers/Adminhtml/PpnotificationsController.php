@@ -12,7 +12,7 @@ class Packpin_Pptrack_Adminhtml_PpnotificationsController extends Mage_Adminhtml
     public function indexAction()
     {
         $this->_initAction()
-            ->_title($this->__("Packpin Notifications"))
+            ->_title(Mage::helper('pptrack')->__("Packpin Notifications"))
             ->renderLayout();
     }
 
@@ -22,7 +22,7 @@ class Packpin_Pptrack_Adminhtml_PpnotificationsController extends Mage_Adminhtml
     public function settingsAction()
     {
         $this->_initAction()
-            ->_title($this->__("Packpin Notification Settings"))
+            ->_title(Mage::helper('pptrack')->__("Packpin Notification Settings"))
             ->renderLayout();
     }
 

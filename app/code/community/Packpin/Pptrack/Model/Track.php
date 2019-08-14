@@ -452,4 +452,12 @@ class Packpin_Pptrack_Model_Track extends Mage_Core_Model_Abstract
         return $dateFormatted;
     }
 
+    public function getTotalCount()
+    {
+        $count = $this->getCollection()
+            ->getSize();
+
+        return $count;
+    }
+
 }

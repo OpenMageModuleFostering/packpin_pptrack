@@ -25,7 +25,7 @@ class Packpin_Pptrack_UnsubscribeController extends Mage_Core_Controller_Front_A
         }
 
         $this->loadLayout();
-        $this->getLayout()->getBlock("head")->setTitle($this->__("Unsubscribe"));
+        $this->getLayout()->getBlock("head")->setTitle(Mage::helper('pptrack')->__("Unsubscribe"));
         $this->renderLayout();
     }
 }

@@ -1,0 +1,22 @@
+<div class="entry-edit">
+    <div class="entry-edit-head"><h4><?php echo Mage::helper('pptrack')->__('Packpin Stats') ?></h4></div>
+    <fieldset style="padding:10px 0 0;">
+        <table width="100%" cellspacing="0">
+            <tbody>
+            <tr>
+                <td class="a-center bold">
+                    <span><?php echo Mage::helper('pptrack')->__('Shipments Tracked') ?></span><br>
+                    <span style="font-size:18px; color:#EA7601;" class="nowrap"><?php echo $this->getTotalShipments() ?></span>
+                </td>
+                <td class="a-center bold">
+                    <span><?php echo Mage::helper('pptrack')->__('Visits Generated') ?></span><br>
+                    <span style="font-size:18px; color:#EA7601;" class="nowrap"><?php echo $this->getTotalVisits() ?></span>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <a class="a-right"
+           style="display:block;text-decoration:none;padding:5px 15px;border-top:1px solid #dadfe0;margin-top:10px;"
+           href="<?php echo Mage::helper("adminhtml")->getUrl("adminhtml/packpintracks/dashboard") ?>"><?php echo Mage::helper('pptrack')->__('More Details') ?> &raquo;</a>
+    </fieldset>
+</div>

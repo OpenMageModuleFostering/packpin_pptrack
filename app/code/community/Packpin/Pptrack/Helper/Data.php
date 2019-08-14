@@ -23,6 +23,8 @@ class Packpin_Pptrack_Helper_Data extends Mage_Core_Helper_Abstract
     const API_PATH_CONNECTORS = 'connectors';
     const API_PATH_TEST = 'test/1';
     const API_PATH_GENERATE_TEMP_KEY = 'genkey';
+    const API_PATH_PLAN_INFO = 'planinfo';
+    const API_PATH_EMAIL_COUNT = 'emails/count';
 
 
     const API_ROLE_NAME = 'packpin_connection';
@@ -317,6 +319,49 @@ class Packpin_Pptrack_Helper_Data extends Mage_Core_Helper_Abstract
         }
 
         return false;
+    }
+
+    /**
+     * Get details about current plan
+     *
+     * @return array
+     */
+    public function getPlanDetails()
+    {
+        $info = array();
+        $url = self::API_PATH_PLAN_INFO;
+
+        $res = $this->_apiRequest($url, 'GET');
+        if ($res) {
+            $info = json_decode($res, true);
+        }
+
+        return $info;
+    }
+
+    /**
+     * Get email sent count for period
+     *
+     * @param string $start
+     * @param string $end
+     *
+     * @return array
+     */
+    public function getEmailCount($start, $end)
+    {
+        $info = array();
+        $url = self::API_PATH_EMAIL_COUNT;
+        $body = array(
+            'start' => $start,
+            'end' => $end,
+        );
+
+        $res = $this->_apiRequest($url, 'POST', $body);
+        if ($res) {
+            $info = json_decode($res, true);
+        }
+
+        return $info;
     }
 
 }

@@ -34,7 +34,7 @@ class Packpin_Pptrack_Block_Adminhtml_Sales_Order_Shipment_View_Tracking extends
                     $carriers = array();
                 }
                 else {
-                    $carriers[''] = $this->__('----- Packpin carriers -----');
+                    $carriers[''] = Mage::helper('pptrack')->__('----- Packpin carriers -----');
                 }
                 foreach ($packpinCarriers as $item) {
                     $carriers[$item->getPrefixedCode()] = $item->getData('name');

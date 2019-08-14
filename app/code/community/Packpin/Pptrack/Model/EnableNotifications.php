@@ -46,7 +46,7 @@ class Packpin_Pptrack_Model_Enablenotifications extends Mage_Core_Model_Config_D
 
             if(!$info OR $info['statusCode'] == 400) {
                 if($info['body']['reason']) {
-                    Mage::throwException(Mage::helper('pptrack')->__(Mage::helper('pptrack')->__($info['body']['reason'])));
+                    Mage::throwException(Mage::helper('pptrack')->__($info['body']['reason']));
                 }
                 else {
                     Mage::throwException(Mage::helper('pptrack')->__('Error sending data to API'));

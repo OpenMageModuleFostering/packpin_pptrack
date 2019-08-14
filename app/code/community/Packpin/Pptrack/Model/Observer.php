@@ -259,4 +259,49 @@ class Packpin_Pptrack_Model_Observer
         }
     }
 
+    public function coreBlockAbstractPrepareLayoutAfter(Varien_Event_Observer $observer)
+    {
+        $enabled = Mage::getStoreConfig('pp_section_setttings/settings/status');
+        if (!$enabled)
+            return false;
+
+        try {
+            if (Mage::app()->getFrontController()->getAction()->getFullActionName() === 'adminhtml_dashboard_index')
+            {
+                $block = $observer->getBlock();
+                if ($block->getNameInLayout() === 'dashboard')
+                {
+                    $block->getChild('sales')->setUseAsDashboardHook(true);
+                }
+            }
+        }
+        catch (Exception $e) {
+
+        }
+    }
+
+    public function coreBlockAbstractToHtmlAfter(Varien_Event_Observer $observer)
+    {
+        $enabled = Mage::getStoreConfig('pp_section_setttings/settings/status');
+        if (!$enabled)
+            return false;
+
+        try {
+            if (Mage::app()->getFrontController()->getAction()->getFullActionName() === 'adminhtml_dashboard_index')
+            {
+                if ($observer->getBlock()->getUseAsDashboardHook())
+                {
+                    $html = $observer->getTransport()->getHtml();
+                    $myBlock = $observer->getBlock()->getLayout()
+                        ->createBlock('pptrack_adminhtml/dashboard');
+                    $html .= $myBlock->toHtml();
+                    $observer->getTransport()->setHtml($html);
+                }
+            }
+        }
+        catch (Exception $e) {
+
+        }
+    }
+
 }

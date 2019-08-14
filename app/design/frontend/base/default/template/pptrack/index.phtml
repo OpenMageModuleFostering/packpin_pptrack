@@ -36,12 +36,12 @@ if (Mage::getStoreConfig('pp_section_setttings/crosssell/cross_sell_page')) {
 <?php if (!$model->getStatus()): ?>
     <br>
     <br>
-    <h2><?php echo $this->__('No tracking info!'); ?></h2>
+    <h2><?php echo Mage::helper('pptrack')->__('No tracking info!'); ?></h2>
     <br>
 <?php else: ?>
 
     <div class="pptrack-wrapper">
-        <h2><?php echo $this->__('Shipment Information'); ?></h2>
+        <h2><?php echo Mage::helper('pptrack')->__('Shipment Information'); ?></h2>
         <br/>
 
         <div class="pptrack-progress">
@@ -50,21 +50,21 @@ if (Mage::getStoreConfig('pp_section_setttings/crosssell/cross_sell_page')) {
                     <ul class="pptrack-progress-bar <?php if ($model->getStatus() == 'delivered') echo "pptrack-progress-bar-done"; ?>">
                         <li class="<?php echo $model->getStatusClass(Packpin_Pptrack_Model_Track::STATUS_PENDING) ?>">
                             <div
-                                class="pptrack-tracking-progress-bar-label"><?php echo $this->__('Dispatched'); ?></div>
+                                class="pptrack-tracking-progress-bar-label"><?php echo Mage::helper('pptrack')->__('Dispatched'); ?></div>
                             <span class="pptrack-progress-bubble"></span>
                         </li>
                         <li class="<?php echo $model->getStatusClass(Packpin_Pptrack_Model_Track::STATUS_IN_TRANSIT) ?>">
                             <div
-                                class="pptrack-tracking-progress-bar-label"><?php echo $this->__('In Transit'); ?></div>
+                                class="pptrack-tracking-progress-bar-label"><?php echo Mage::helper('pptrack')->__('In Transit'); ?></div>
                             <span class="pptrack-progress-bubble"></span>
                         </li>
                         <li class="<?php echo $model->getStatusClass(Packpin_Pptrack_Model_Track::STATUS_OUT_FOR_DELIVERY) ?>">
                             <div
-                                class="pptrack-tracking-progress-bar-label"><?php echo $this->__('Out for delivery'); ?></div>
+                                class="pptrack-tracking-progress-bar-label"><?php echo Mage::helper('pptrack')->__('Out for delivery'); ?></div>
                             <span class="pptrack-progress-bubble"></span>
                         </li>
                         <li class="<?php echo $model->getStatusClass(Packpin_Pptrack_Model_Track::STATUS_DELIVERED) ?>">
-                            <div class="pptrack-tracking-progress-bar-label"><?php echo $this->__('Delivered'); ?></div>
+                            <div class="pptrack-tracking-progress-bar-label"><?php echo Mage::helper('pptrack')->__('Delivered'); ?></div>
                             <span class="pptrack-progress-bubble"></span>
                         </li>
                     </ul>
@@ -75,7 +75,7 @@ if (Mage::getStoreConfig('pp_section_setttings/crosssell/cross_sell_page')) {
         <br/>
 
         <div class="pptrack-tracking-info">
-            <h2><?php echo $this->__('Tracking Info'); ?></h2>
+            <h2><?php echo Mage::helper('pptrack')->__('Tracking Info'); ?></h2>
 
             <div class="pptrack-tracking-info-details">
                 <?php $details = $model->getDetails(); ?>
@@ -85,7 +85,7 @@ if (Mage::getStoreConfig('pp_section_setttings/crosssell/cross_sell_page')) {
                             <br/><?php echo date("H:i:s", $model->created_at) ?></div>
                         <div class="pptrack-info-row-details-wrapper">
                             <div class="pptrack-info-row-details">
-                                <?php echo $this->__("Package prepared for dispatch") ?>
+                                <?php echo Mage::helper('pptrack')->__("Package prepared for dispatch") ?>
                             </div>
                         </div>
                         <div style="clear:both;display:table;"></div>
@@ -98,7 +98,7 @@ if (Mage::getStoreConfig('pp_section_setttings/crosssell/cross_sell_page')) {
                                     <br/><?php echo $detail->getEventTime(); ?></div>
                                 <div class="pptrack-info-row-details-wrapper">
                                     <div class="pptrack-info-row-details">
-                                        <?php echo $detail->getStatusString(); ?>
+                                        <?php echo Mage::helper('pptrack')->__($detail->getStatusString()); ?>
                                         <div
                                             class="pptrack-info-row-details-location"><?php echo $detail->getLocation() ?></div>
                                     </div>
@@ -115,22 +115,22 @@ if (Mage::getStoreConfig('pp_section_setttings/crosssell/cross_sell_page')) {
 
             <div class="pptrack-tracking-general-info-details">
                 <div class="pptrack-tracking-row">
-                    <span class="pptrack-tracking-general-info-label"><?php echo $this->__('Order number'); ?></span>
+                    <span class="pptrack-tracking-general-info-label"><?php echo Mage::helper('pptrack')->__('Order number'); ?></span>
                     <span class="pptrack-tracking-general-info-value"><?php echo $model->getOrderNumber(); ?></span>
                     <br style="clear: both;"/>
                 </div>
                 <div class="pptrack-tracking-row">
-                    <span class="pptrack-tracking-general-info-label"><?php echo $this->__('Tracking code'); ?></span>
+                    <span class="pptrack-tracking-general-info-label"><?php echo Mage::helper('pptrack')->__('Tracking code'); ?></span>
                     <span class="pptrack-tracking-general-info-value"><?php echo $model->getCode(); ?></span>
                     <br style="clear: both;"/>
                 </div>
                 <div class="pptrack-tracking-row">
-                    <span class="pptrack-tracking-general-info-label"><?php echo $this->__('Shipped on'); ?></span>
+                    <span class="pptrack-tracking-general-info-label"><?php echo Mage::helper('pptrack')->__('Shipped on'); ?></span>
                     <span class="pptrack-tracking-general-info-value"><?php echo $model->getShippingDate(); ?></span>
                     <br style="clear: both;"/>
                 </div>
                 <div class="pptrack-tracking-row">
-                    <span class="pptrack-tracking-general-info-label"><?php echo $this->__('Ships to'); ?></span>
+                    <span class="pptrack-tracking-general-info-label"><?php echo Mage::helper('pptrack')->__('Ships to'); ?></span>
                     <span
                         class="pptrack-tracking-general-info-value"><?php echo $shippingInfo['firstname'] . ' ' . $shippingInfo['lastname']; ?>
                         <br/><?php echo $shippingInfo['street'] . ', ' . $shippingInfo['city']; ?>
@@ -141,7 +141,7 @@ if (Mage::getStoreConfig('pp_section_setttings/crosssell/cross_sell_page')) {
                 <br/>
 
                 <div class="pptrack-tracking-carrier-info-wrapper">
-                    <span><?php echo $this->__('For questions regarding your shipment contact carrier directly'); ?></span><br/>
+                    <span><?php echo Mage::helper('pptrack')->__('For questions regarding your shipment contact carrier directly'); ?></span><br/>
                     <br/>
 
                     <div class="pptrack-tracking-courier-logo">

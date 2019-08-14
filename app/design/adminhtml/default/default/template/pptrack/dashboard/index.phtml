@@ -1,0 +1,150 @@
+<?php
+$planDetails = $this->getPlanDetails();
+$rangeInfo = $this->getRangeInfo();
+$range = $this->getSelectedRange();
+$rangeStats = $this->getRangeStats();
+$data = $rangeStats['graph'];
+?>
+<div class="content-header">
+    <table cellspacing="0">
+        <tr>
+            <td style="width:50%;"><h3><?php echo Mage::helper('pptrack')->__('Packpin Dashboard') ?></h3></td>
+        </tr>
+    </table>
+</div>
+
+<div id="dashboard_diagram_totals" class="box">
+    <div class="entry-edit">
+        <table width="100%" cellspacing="0">
+            <tbody><tr>
+                <td style="width:33%;" class="a-center bold">
+                    <span><?php echo Mage::helper('pptrack')->__('Plan Name') ?></span><br>
+                    <span style="font-size:18px; color:#EA7601;" class="nowrap"><?php echo isset($planDetails['name']) ? $planDetails['name'] : '?' ?></span>
+                </td>
+                <td style="width:33%;" class="a-center bold">
+                    <span><?php echo Mage::helper('pptrack')->__('Total Trackings') ?></span><br>
+                    <span style="font-size:18px; color:#EA7601;" class="nowrap"><?php echo isset($planDetails['trackings']['count']) ? number_format($planDetails['trackings']['count']) : '?' ?></span>
+                </td>
+                <td style="width:33%;" class="a-center bold">
+                    <span><?php echo Mage::helper('pptrack')->__('Trackings Left This Month') ?></span><br>
+                    <span style="font-size:18px; color:#EA7601;" class="nowrap"><?php echo isset($planDetails['trackings']['left']) ? number_format($planDetails['trackings']['left']) : '?' ?></span>
+                </td>
+            </tr>
+            </tbody></table>
+    </div>
+</div>
+
+
+
+<div class="dashboard-container">
+    <form id="dateRangeForm" method="get" action="<?php echo $this->getUrl('adminhtml/packpintracks/dashboard') ?>">
+    <p class="switcher"><label for="store_switcher"><?php echo Mage::helper('pptrack')->__('Date range') ?></label>
+        <select id="range_switcher" name="range">
+            <?php foreach ($rangeInfo as $code => $item) : ?>
+            <option <?php echo $range == $code ? 'selected="selected"' : '' ?> value="<?php echo $code ?>"><?php echo $item['label'] ?></option>
+            <?php endforeach; ?>
+        </select>
+
+        <input class="a-center" type="text" name="date_from" id="date_from" value="<?php echo $rangeInfo[$range]['date_start'] ?>" >
+        <img src="<?php echo $this->getSkinUrl('images/grid-cal.gif') ?>" class="v-middle" id="date_from_trig"/>
+        <input class="a-center" type="text" name="date_to" id="date_to" value="<?php echo $rangeInfo[$range]['date_end'] ?>" >
+        <img src="<?php echo $this->getSkinUrl('images/grid-cal.gif') ?>" class="v-middle" id="date_to_trig"/>
+    </p>
+    </form>
+    <table cellspacing='5' width='100%'>
+        <tr>
+            <td style="width: 25%;">
+                <div class="entry-edit">
+                    <div class="entry-edit-head"><h4><?php echo Mage::helper('pptrack')->__('Shipments Tracked') ?></h4>
+                    </div>
+                    <fieldset class="a-center bold" style="padding:20px 0;">
+                        <span style="font-size:18px;" class="nowrap"><?php echo number_format($rangeStats['trackings']) ?></span>
+                    </fieldset>
+                </div>
+            </td>
+            <td style="width: 25%;">
+                <div class="entry-edit">
+                    <div class="entry-edit-head"><h4><?php echo Mage::helper('pptrack')->__('Notification Emails Sent') ?></h4>
+                    </div>
+                    <fieldset class="a-center bold" style="padding:20px 0;">
+                        <span style="font-size:18px;" class="nowrap"><?php echo is_int($rangeStats['emails']) ? number_format($rangeStats['emails']) : $rangeStats['emails'] ?></span>
+                    </fieldset>
+                </div>
+            </td>
+            <td style="width: 25%;">
+                <div class="entry-edit">
+                    <div class="entry-edit-head"><h4><?php echo Mage::helper('pptrack')->__('Visits Generated') ?></h4>
+                    </div>
+                    <fieldset class="a-center bold" style="padding:20px 0;">
+                        <span style="font-size:18px;" class="nowrap"><?php echo number_format($rangeStats['visits']) ?></span>
+                    </fieldset>
+                </div>
+            </td>
+            <td style="width: 25%;">
+                <div class="entry-edit">
+                    <div class="entry-edit-head">
+                        <h4><?php echo Mage::helper('pptrack')->__('Average trackings per shipment') ?></h4></div>
+                    <fieldset class="a-center bold" style="padding:20px 0;">
+                        <span style="font-size:18px;"
+                              class="nowrap"><?php echo number_format($rangeStats['average'], 2) ?></span>
+                    </fieldset>
+                </div>
+            </td>
+        </tr>
+    </table>
+    <div id="graph1"></div>
+</div>
+
+<script type="text/javascript">
+    var rangeInfo = <?php echo json_encode($rangeInfo) ?>;
+
+    Calendar.setup({
+        inputField: 'date_from',
+        ifFormat: '%Y-%m-%d',
+        button: 'date_from_trig',
+        align: 'Bl',
+        singleClick: true,
+        onUpdate: function() {
+            jQuery("#range_switcher").val("custom");
+            jQuery("#dateRangeForm").submit();
+        }
+    });
+
+    Calendar.setup({
+        inputField: 'date_to',
+        ifFormat: '%Y-%m-%d',
+        button: 'date_to_trig',
+        align: 'Bl',
+        singleClick: true,
+        onUpdate: function() {
+            jQuery("#range_switcher").val("custom");
+            jQuery("#dateRangeForm").submit();
+        }
+    });
+
+    jQuery("#date_from,#date_to").change(function() {
+        jQuery("#range_switcher").val("custom");
+        jQuery("#dateRangeForm").submit();
+    });
+    jQuery("#range_switcher").change(function() {
+        var v = jQuery(this).val();
+        if (v != "custom") {
+            jQuery("#dateRangeForm").submit();
+        }
+    });
+
+
+    Morris.Area({
+        element: 'graph1',
+        data: <?php echo json_encode(array_values($data)) ?>,
+        xkey: 'period',
+        ykeys: ['count', 'count2'],
+        labels: ['Shipments', 'Visits'],
+        pointSize: 2,
+        hideHover: 'auto',
+        lineWidth: 2,
+        resize: false,
+        xLabels: "day"
+    });
+
+</script>

@@ -7,10 +7,33 @@
             </pptrack>
         </updates>
     </layout>
+    <menu>
+        <dashboard>
+            <children>
+                <packpin_pptrack translate="title" module="pptrack">
+                    <title>Packpin Dashboard</title>
+                    <sort_order>903</sort_order>
+                    <!--depends>
+                        <module>Packpin_Pptrack</module>
+                    </depends-->
+                    <action>adminhtml/packpintracks/dashboard</action>
+                </packpin_pptrack>
+            </children>
+        </dashboard>
+    </menu>
     <acl>
         <resources>
             <admin>
                 <children>
+                    <dashboard>
+                        <children>
+                            <packpin_pptrack translate="title" module="pptrack">
+                                <title>Packpim Dashboard</title>
+                                <sort_order>903</sort_order>
+                                <action>adminhtml/packpintracks/dashboard</action>
+                            </packpin_pptrack>
+                        </children>
+                    </dashboard>
                     <system>
                         <children>
                             <config>
