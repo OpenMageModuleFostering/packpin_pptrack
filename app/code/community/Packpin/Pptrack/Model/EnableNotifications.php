@@ -75,11 +75,13 @@ class Packpin_Pptrack_Model_Enablenotifications extends Mage_Core_Model_Config_D
                 $info = $helper->enableConnector($notificationStatus);
 
                 if(!$info OR $info['statusCode'] == 400) {
+                    $helpLocal = '<br>Please note that we will not be able to reach your shop(for notification emails) if you are testing on local enviroment. <br><br>If you need help with setup or have any questions, use chat window on the right or email <a href="mailto:support@packpin.com">support@packpin.com</a>';
+
                     if(isset($info['body']['reason']) && !empty($info['body']['reason'])) {
-                        Mage::throwException('Could not enable notifications: '.$info['body']['reason']);
+                        Mage::throwException('Could not enable notifications: '.$info['body']['reason'] . $helpLocal);
                     }
                     else {
-                        Mage::throwException('Could not enable notifications: Could not connect to API');
+                        Mage::throwException('Could not enable notifications: Could not connect to API' . $helpLocal);
                     }
                 }
             }
