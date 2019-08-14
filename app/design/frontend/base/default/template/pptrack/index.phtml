@@ -1,6 +1,10 @@
 <?php
 if ($this->newTemplate) {
-    echo $this->setTemplate('pptrack/index_new.phtml')->toHtml();
+    if (Mage::getStoreConfig('pp_section_setttings/template/template_type') === 'v2') {
+        echo $this->setTemplate('pptrack/index_v2.phtml')->toHtml();
+    } else {
+        echo $this->setTemplate('pptrack/index_new.phtml')->toHtml();
+    }
 
     return false;
 }

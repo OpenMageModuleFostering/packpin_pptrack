@@ -96,6 +96,24 @@ class Packpin_Pptrack_Model_Track extends Mage_Core_Model_Abstract
     }
 
     /**
+     * @return array
+     */
+    public static function getStatusStrings()
+    {
+        return array(
+            self::STATUS_PENDING => Mage::helper('pptrack')->__('Pending'),
+            self::STATUS_NO_INFO => Mage::helper('pptrack')->__('No Info'),
+            self::STATUS_INFO_RECEIVED => Mage::helper('pptrack')->__('In Transit'),
+            self::STATUS_IN_TRANSIT => Mage::helper('pptrack')->__('In Transit'),
+            self::STATUS_DISPATCHED_TO_OVERSEAS => Mage::helper('pptrack')->__('In Transit'),
+            self::STATUS_FAILED_ATTEMPT => Mage::helper('pptrack')->__('Failed Attempt'),
+            self::STATUS_EXCEPTION => Mage::helper('pptrack')->__('In Transit'),
+            self::STATUS_OUT_FOR_DELIVERY => Mage::helper('pptrack')->__('Out For Delivery'),
+            self::STATUS_DELIVERED => Mage::helper('pptrack')->__('Delivered'),
+        );
+    }
+
+    /**
      * Update unix times
      *
      * @return mixed
@@ -469,11 +487,11 @@ class Packpin_Pptrack_Model_Track extends Mage_Core_Model_Abstract
     /**
      * @return string
      */
-    public function getShippingDate()
+    public function getShippingDate($format = 'medium')
     {
         $time = $this->getCreatedAt();
 
-        $dateFormatted = Mage::helper('core')->formatTime(date("Y-m-d H:i:s", $time), 'medium', true);
+        $dateFormatted = Mage::helper('core')->formatTime(date("Y-m-d H:i:s", $time), $format, true);
         return $dateFormatted;
     }
 
@@ -490,6 +508,20 @@ class Packpin_Pptrack_Model_Track extends Mage_Core_Model_Abstract
         if (isset($this->apiResponseData['estimated_delivery'])) {
             return Mage::helper('core')->formatDate($this->apiResponseData['estimated_delivery'], 'full', false);
         }
+    }
+
+    /**
+     * Get package status as string
+     * @return string
+     */
+    public function getStatusString()
+    {
+        $list = self::getStatusStrings();
+
+        if (!isset($list[$this->getStatus()]))
+            return '';
+
+        return $list[$this->getStatus()];
     }
 
 }

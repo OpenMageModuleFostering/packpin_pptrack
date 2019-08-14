@@ -32,3 +32,35 @@ ul.tabs dd:last-child a.packpin-settings:hover span {
     -moz-border-radius: 20px !important;
     border-radius: 20px !important;
 }
+.pp-preview-row {
+    display: block;
+    margin: 3px -15px;
+    min-width: 500px;
+}
+.pp-preview-item-wrap {
+    position: relative;
+    display: inline-block;
+    margin: 0 15px;
+    width: 200px;
+    height: auto;
+    border: 1px solid #eaf0ee;
+}
+.pp-preview-image {
+    height: 100px;
+}
+.pp-preview-image.pp-preview-template1 {
+    background: #fff url("../images/mg_template1_o.png") no-repeat center center;
+    background-size: contain;
+}
+.pp-preview-image.pp-preview-template2 {
+    background: #fff url("../images/mg_template2_o.png") no-repeat center center;
+    background-size: contain;
+}
+.pp-preview-item-title {
+    height: 16px;
+    line-height: 16px;
+    text-align: center;
+    font-size: 11px;
+    color: #696969;
+    text-shadow: #FFFFFF;
+}

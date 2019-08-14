@@ -1,8 +1,4 @@
 <script>
-    //Event.observe(window, 'load', function() {
-    //Event.observe('points_options_config_points_expiration_period', 'change', checkExpirationPeriod);
-    //checkExpirationPeriod();
-    //})
     function checkCrossInputs() {
         var v1 = $('pp_section_setttings_crosssell_cross_sell_page_type').value;
         var v2 = $('pp_section_setttings_crosssell_cross_sell_email_type').value;
@@ -41,13 +37,35 @@
             $('row_pp_section_setttings_crosssell_cross_sell_email_image_url').show();
             $('row_pp_section_setttings_crosssell_cross_sell_email_items').show();
         }
+    }
 
+    function checkTemplateInputs() {
+        var v1 = $('pp_section_setttings_template_template_image_type').value;
+        var v2 = $('pp_section_setttings_template_template_type').value;
+        if (v2 == 'v2') {
+            $('row_pp_section_setttings_template_template_image_type').show();
+            $('row_pp_section_setttings_template_template_image').show();
+            $('row_pp_section_setttings_template_template_image_link').show();
+        } else {
+            $('row_pp_section_setttings_template_template_image_type').hide();
+            $('row_pp_section_setttings_template_template_image').hide();
+            $('row_pp_section_setttings_template_template_image_link').hide();
+        }
+        if (v1 == 'custom') {
+            $('row_pp_section_setttings_template_template_image').show();
+        } else {
+            $('row_pp_section_setttings_template_template_image').hide();
+        }
     }
 
     Event.observe(window, "load", function() {
         checkCrossInputs();
         Event.observe('pp_section_setttings_crosssell_cross_sell_page_type', 'change', checkCrossInputs);
         Event.observe('pp_section_setttings_crosssell_cross_sell_email_type', 'change', checkCrossInputs);
+
+        checkTemplateInputs();
+        Event.observe('pp_section_setttings_template_template_image_type', 'change', checkTemplateInputs);
+        Event.observe('pp_section_setttings_template_template_type', 'change', checkTemplateInputs);
     });
 
     //for packpin chat
