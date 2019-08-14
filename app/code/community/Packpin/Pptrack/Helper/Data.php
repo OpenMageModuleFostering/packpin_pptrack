@@ -18,6 +18,7 @@ class Packpin_Pptrack_Helper_Data extends Mage_Core_Helper_Abstract
      */
     const API_PATH_CARRIERS = 'carriers';
     const API_PATH_TRACKINGS = 'trackings';
+    const API_PATH_RTT = 'rtt';
     const API_PATH_TRACKINGS_BATCH = 'trackings/batch';
     const API_PATH_TRACKING_INFO = 'trackings/%s/%s';
     const API_PATH_CONNECTORS = 'connectors';
@@ -164,14 +165,21 @@ class Packpin_Pptrack_Helper_Data extends Mage_Core_Helper_Abstract
      * @param string|null $destinationCountry
      * @param string|null $shipDate
      * @param integer|null $orderId
+     * @param bool $waitForResponse
      *
      * @return array
      */
-    public function addTrackingCode($carrierCode, $trackingCode, $description = null, $postalCode = null, $destinationCountry = null, $shipDate = null, $orderId = null)
+    public function addTrackingCode($carrierCode, $trackingCode, $description = null, 
+                                    $postalCode = null, $destinationCountry = null, 
+                                    $shipDate = null, $orderId = null, $waitForResponse = false)
     {
         $info = array();
 
-        $url = self::API_PATH_TRACKINGS;
+        if ($waitForResponse === true) {
+            $url = self::API_PATH_RTT;
+        } else {
+            $url = self::API_PATH_TRACKINGS;
+        }
         $body = array(
             'code' => $trackingCode,
             'carrier' => $carrierCode,
@@ -179,7 +187,7 @@ class Packpin_Pptrack_Helper_Data extends Mage_Core_Helper_Abstract
             'track_postal_code' => $postalCode,
             'track_ship_date' => $shipDate,
             'track_destination_country' => $destinationCountry,
-            'order_id' => $orderId,
+            'order_id' => $orderId
         );
 
         $res = $this->_apiRequest($url, 'POST', $body);

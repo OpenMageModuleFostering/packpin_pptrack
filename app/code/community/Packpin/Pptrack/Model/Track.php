@@ -320,8 +320,9 @@ class Packpin_Pptrack_Model_Track extends Mage_Core_Model_Abstract
 
     /**
      * Try to sync this model with API
+     * @param bool $waitForResponse
      */
-    public function updateApi()
+    public function updateApi($waitForResponse = false)
     {
         $helper = Mage::helper('pptrack');
 
@@ -335,7 +336,8 @@ class Packpin_Pptrack_Model_Track extends Mage_Core_Model_Abstract
                 $this->getPostalCode(),
                 $this->getDestinationCountry(),
                 $this->getShipDate(),
-                $this->getOrderId()
+                $this->getOrderId(),
+                $waitForResponse
             );
 
             //400 statuscode goes for "tracking already in the list"
