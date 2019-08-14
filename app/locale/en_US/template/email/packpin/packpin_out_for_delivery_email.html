@@ -1,0 +1,86 @@
+<!--@subject Order shipment status has been updated. @-->
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <style>
+        @import url(http://fonts.googleapis.com/css?family=Open+Sans:400,600,700&subset=latin,latin-ext);
+    </style>
+</head>
+<body style="background:#ebebeb;">
+<div style="max-width:600px;margin-top:10px;margin-right:auto;margin-bottom:0;margin-left:auto;padding-top:10px;padding-right:10px;padding-bottom:10px;padding-left:10px;background:#ffffff;font-family:'Open Sans',sans-serif;color:#333333;">
+    <div style="background:#ececed;">
+        <a style="display:block;text-decoration:none;text-align:center;padding-top:26px;padding-bottom:20px;padding-left:10px;padding-right:10px;" href="{{store url=""}}">
+        <img
+                {{if logo_width}}
+                width="{{var logo_width}}"
+                {{else}}
+                width="auto"
+                {{/if}}
+        {{if logo_height}}
+        height="{{var logo_height}}"
+        {{else}}
+        height="35"
+        {{/if}}
+        style="max-width:100%;" src="{{var logo_url}}" alt="{{var logo_alt}}" border="0"/>
+        </a>
+        <div style="font-size:18px;font-weight:700;text-align:center;padding-left:10px;padding-right:10px;">
+            YOUR PACKAGE STATUS HAS BEEN UPDATED!
+        </div>
+        {{var crossSell}}
+        <fieldset style="margin-top:20px;border-left-style:none;border-right-style:none;border-bottom-style:none;margin-left:10px;margin-right:10px;">
+            <legend style="font-size:14px;">YOUR PACKAGE INFORMATION</legend>
+            <table style="font-size:12px;margin-top:15px;line-height:20px;" border="0" cellspacing="0" cellpadding="0" width="100%;">
+                <tr>
+                    <td valign="top" style="text-align:left;font-weight:600">
+                        Order number:
+                    </td>
+                    <td valign="top" style="text-align:left;font-weight:400">
+                        {{var track.getOrderNumber()}}
+                    </td>
+                    <td valign="top" style="text-align:left;font-weight:600">
+                        Carrier:
+                    </td>
+                    <td valign="top" style="text-align:left;font-weight:400">
+                        {{var track.getCarrierName()}}
+                    </td>
+                </tr>
+                <tr>
+                    <td valign="top" style="text-align:left;font-weight:600">
+                    </td>
+                    <td valign="top" style="text-align:left;font-weight:400">
+                    </td>
+                    <td valign="top" style="text-align:left;font-weight:600">
+                        Tracking number:
+                    </td>
+                    <td valign="top" style="text-align:left;font-weight:400">
+                        {{var track.getCode()}}
+                    </td>
+                </tr>
+                <tr>
+                    <td>&nbsp;</td>
+                </tr>
+                <tr>
+                    <td valign="top" colspan="2" style="text-align:left;line-height:15px;">
+                        If you have questions regarding shipment,
+                        <br>
+                        please contact carrier direcly.
+                    </td>
+                    <td valign="top" colspan="2">
+                        <a style="white-space:nowrap;display:block;padding-top:2px;padding-bottom:2px;padding-left:7px;padding-right:7px;text-decoration:none;color:#ffffff;background-color:#484950;font-size:11px;text-align:center;" href="{{var track.getDetailsUrl()}}">
+                            SEE FULL TRACKING INFO
+                        </a>
+                    </td>
+                </tr>
+            </table>
+        </fieldset>
+    </div>
+    <div style="background:#c1c1c1;font-size:11px;line-height:15px;text-align:center;font-size:11px;padding-top:5px;padding-bottom:5px;">
+        This email was sent to {{var email}}
+        <br>
+        No longer wish to be notified about your shipment? <a style="text-decoration:underline;color:#333333;" href="{{var track.getUnsubscribeLink()}}">Unsubscribe</a>
+    </div>
+</div>
+
+</body>
+</html>

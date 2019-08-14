@@ -1,0 +1,32 @@
+<?php
+$limit = Mage::getStoreConfig('pp_section_setttings/crosssell/cross_sell_email_items');
+$collection = $this->getCrossSellingItemsByOrderId($this->getData('orderId'), $limit);
+?>
+
+<?php if(count($collection)): ?>
+    <div style="margin-top:5px;font-size:12px;font-weight:400;text-align:center;;line-height:14px;">
+        While you are waiting, we have something for you.
+        <br>
+        Check the offerings bellow:
+    </div>
+    <div style="margin-top:20px;">
+        <table border="0" cellspacing="10" width="100%;">
+            <tr>
+                <?php foreach ($collection as $_item): ?>
+                    <td valign="top" style="text-align:center !important;font-size:11px;background:#ffffff;padding:10px;">
+                        <a style="display:block;text-decoration:none;" href="<?php echo $_item->getProductUrl() ?>" title="<?php echo $this->escapeHtml($_item->getName()) ?>">
+                            <img style="max-width:100%;" src="<?php echo $this->helper('catalog/image')->init($_item, 'small_image')->resize(null, 100); ?>" alt="<?php echo $this->escapeHtml($_item->getName()) ?>" />
+                        </a>
+                        <a style="display:block;text-decoration:none;font-size:11px;font-weight:400;text-align:center;color:#333333;text-transform:uppercase;" href="<?php echo $_item->getProductUrl() ?>"><?php echo $this->escapeHtml($_item->getName()) ?></a>
+                        <div style="margin-top:7px;font-size:11px;font-weight:700;text-align:center;">
+                            <?php echo $this->getPriceHtml($_item, false) ?>
+                        </div>
+                        <a style="display:inline-block;padding-top:2px;padding-bottom:2px;padding-left:7px;padding-right:7px;margin-top:3px;text-decoration:none;color:#ffffff;background-color:#484950;font-size:11px;text-align:center;" href="<?php echo $_item->getProductUrl() ?>" title="<?php echo $this->escapeHtml($_item->getName()) ?>">
+                            READ MORE
+                        </a>
+                    </td>
+                <?php endforeach; ?>
+            </tr>
+        </table>
+    </div>
+<?php endif; ?>

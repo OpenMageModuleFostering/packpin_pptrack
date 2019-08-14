@@ -1,0 +1,29 @@
+<div class="page-title title-buttons">
+    <h1><?php echo $this->__('Tracking Information'); ?></h1>
+    <button class="button" onclick="window.close(); window.opener.focus();"><span><span><?php echo $this->__('Close Window') ?></span></span></button>
+</div>
+<br>
+<?php $models = Mage::registry('models'); ?>
+<?php if ($models) : ?>
+    <?php foreach ($models as $trackModel) : ?>
+        <table class="tracking-table-popup data-table" style="margin-bottom:25px;">
+            <colgroup><col width="15%">
+                <col>
+            </colgroup><tbody>
+            <tr class="first last odd">
+                <th class="label"><?php echo $trackModel->getCarrierName() ?>: </th>
+                <td class="value last"><?php echo $trackModel->getCode() ?></td>
+            </tr>
+            </tbody>
+        </table>
+        <?php echo $this->getLayout()->createBlock('pptrack/index')->setData(array('model' => $trackModel))->setTemplate('pptrack/index.phtml')->toHtml(); ?>
+        <div class="clearfix"></div>
+        <br>
+    <?php endforeach; ?>
+<?php else : ?>
+    <?php echo $this->getLayout()->createBlock('pptrack/index')->setTemplate('pptrack/index.phtml')->toHtml(); ?>
+<?php endif; ?>
+<div class="clearfix"></div>
+<div class="buttons-set" style="margin-top:20px;">
+    <button type="button" title="<?php echo $this->__('Close Window') ?>" class="button" onclick="window.close(); window.opener.focus();"><span><span><?php echo $this->__('Close Window') ?></span></span></button>
+</div>

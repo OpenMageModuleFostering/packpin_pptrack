@@ -1,0 +1,43 @@
+<config>
+    <api>
+        <resources>
+            <pptrack translate="title" module="pptrack">
+                <title>Packpin Email Resource</title>
+                <model>pptrack/api</model>
+                <methods>
+                    <info translate="title" module="pptrack">
+                        <title>Retrieve notification email info</title>
+                    </info>
+                    <test translate="title" module="pptrack">
+                        <title>Test Packpin API connection</title>
+                    </test>
+                </methods>
+                <faults module="pptrack">
+                    <data_invalid>
+                        <code>100</code >
+                        <message>Invalid tracking data. Details in error message.</message>
+                    </data_invalid>
+                    <not_exists>
+                        <code>102</code >
+                        <message>Tracking code does not exist.</message>
+                    </not_exists>
+                </faults>
+            </pptrack>
+        </resources>
+        <acl>
+            <resources>
+                <pptrack translate="title" module="pptrack">
+                    <title>Packpin notifications</title>
+                    <info translate="title" module="pptrack">
+                        <title>Get Email Template Info</title>
+                        <acl>pptrack/info</acl>
+                    </info>
+                    <test translate="title" module="pptrack">
+                        <title>Test Packpin API connection</title>
+                        <acl>pptrack/test</acl>
+                    </test>
+                </pptrack>
+            </resources>
+        </acl>
+    </api>
+</config>

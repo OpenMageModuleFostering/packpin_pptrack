@@ -1,0 +1,16 @@
+{
+    "name": "OpenMageModuleFostering/Packpin_Pptrack",
+    "type": "magento-module",
+    "license": "GNU-General-Public-License-(GPL)",
+    "homepage": "",
+    "description": "Packpin shipment tracking extension",
+    "authors": [
+    {
+        "name": "Packpin Packpin",
+        "email": "info@packpin.com"
+    }
+],
+    "suggest": {
+        "magento-hackathon/magento-composer-installer": "*"
+    }
+}

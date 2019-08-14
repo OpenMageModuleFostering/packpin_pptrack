@@ -1,0 +1,27 @@
+<?php $_shipment=$this->getShipment() ?>
+<?php $_order=$this->getOrder() ?>
+<?php if ($_shipment && $_order && $_shipment->getAllTracks()): ?>
+    <table cellspacing="0" cellpadding="0" border="0" width="650" style="border:1px solid #EAEAEA;">
+        <thead>
+        <tr>
+            <th align="left" bgcolor="#EAEAEA" style="font-size:13px; padding:3px 9px"><?php echo $this->__('Shipped By') ?></th>
+            <th align="center" bgcolor="#EAEAEA" style="font-size:13px; padding:3px 9px"><?php echo $this->__('Tracking Number') ?></th>
+            <th bgcolor="#EAEAEA" style="padding:3px 9px">&nbsp;</th>
+        </tr>
+        </thead>
+        <tbody>
+        <?php $i=0; foreach ($_shipment->getAllTracks() as $_item): $i++ ?>
+            <tr <?php echo $i%2?'bgcolor="#F6F6F6"':'' ?>>
+                <td align="left" valign="top" style="padding:10px 9px 3px"><?php echo $this->escapeHtml($_item->getTitle()) ?></td>
+                <td align="center" valign="top" style="padding:10px 9px 3px"><?php echo $this->escapeHtml($_item->getNumber()) ?></td>
+                <td align="center" valign="top" style="padding:3px 9px">
+                    <?php if ($this->shipmentTracked($_item, $_order)) : ?>
+                    <?php $ppTrack = $this->getTrackModel(); ?>
+                    <a href="<?php echo $ppTrack->getDetailsUrl() ?>" style="cursor:pointer;text-decoration:none;display:inline-block;padding:4px 14px;border:1px solid transparent;border-radius:6px;color:#ffffff;background: #24aaa3;"><img style="vertical-align: middle;margin-right:7px;" width="16" height="16" src="<?php echo $this->getSkinUrl('images/pptrack/truck.png') ?>" alt="track"><?php echo $this->__('Track your item') ?></a>
+                    <?php endif; ?>
+                </td>
+            </tr>
+        <?php endforeach ?>
+        </tbody>
+    </table>
+<?php endif; ?>

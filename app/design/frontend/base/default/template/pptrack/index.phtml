@@ -1,0 +1,154 @@
+<?php
+if ($this->model)
+    $model = $this->model;
+else
+    $model = Mage::registry('model');
+
+$shippingInfo = $model->getShippingInfo();
+$_helper = $this->helper('catalog/output');
+?>
+
+<?php
+if (Mage::getStoreConfig('pp_section_setttings/crosssell/cross_sell_page')) {
+    $child = $this->getChild("pptrack_crosssell");
+    if ($child) {
+        $child->setData("orderId", $model->getOrderId());
+        echo $this->getChildHtml('pptrack_crosssell');
+    }
+}
+?>
+
+<div style="clear:both;"></div>
+<?php if (!$model->getStatus()): ?>
+    <br>
+    <br>
+    <h2><?php echo $this->__('No tracking info!'); ?></h2>
+    <br>
+<?php else: ?>
+
+    <div class="pptrack-wrapper">
+        <h2><?php echo $this->__('Shipment Information'); ?></h2>
+        <br/>
+
+        <div class="pptrack-progress">
+            <div class="pptrack-progress-bar-wrapper">
+                <div class="pptrack-progress-bar-wrapper">
+                    <ul class="pptrack-progress-bar <?php if ($model->getStatus() == 'delivered') echo "pptrack-progress-bar-done"; ?>">
+                        <li class="<?php echo $model->getStatusClass(Packpin_Pptrack_Model_Track::STATUS_PENDING) ?>">
+                            <div
+                                class="pptrack-tracking-progress-bar-label"><?php echo $this->__('Dispatched'); ?></div>
+                            <span class="pptrack-progress-bubble"></span>
+                        </li>
+                        <li class="<?php echo $model->getStatusClass(Packpin_Pptrack_Model_Track::STATUS_IN_TRANSIT) ?>">
+                            <div
+                                class="pptrack-tracking-progress-bar-label"><?php echo $this->__('In Transit'); ?></div>
+                            <span class="pptrack-progress-bubble"></span>
+                        </li>
+                        <li class="<?php echo $model->getStatusClass(Packpin_Pptrack_Model_Track::STATUS_OUT_FOR_DELIVERY) ?>">
+                            <div
+                                class="pptrack-tracking-progress-bar-label"><?php echo $this->__('Out for delivery'); ?></div>
+                            <span class="pptrack-progress-bubble"></span>
+                        </li>
+                        <li class="<?php echo $model->getStatusClass(Packpin_Pptrack_Model_Track::STATUS_DELIVERED) ?>">
+                            <div class="pptrack-tracking-progress-bar-label"><?php echo $this->__('Delivered'); ?></div>
+                            <span class="pptrack-progress-bubble"></span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <br/>
+        <br/>
+
+        <div class="pptrack-tracking-info">
+            <h2><?php echo $this->__('Tracking Info'); ?></h2>
+
+            <div class="pptrack-tracking-info-details">
+                <?php $details = $model->getDetails(); ?>
+                <?php if (!$details) : ?>
+                    <div class="pptrack-info-row">
+                        <div class="pptrack-info-row-date"><?php echo date("Y-m-d", $model->created_at) ?>
+                            <br/><?php echo date("H:i:s", $model->created_at) ?></div>
+                        <div class="pptrack-info-row-details-wrapper">
+                            <div class="pptrack-info-row-details">
+                                <?php echo $this->__("Package prepared for dispatch") ?>
+                            </div>
+                        </div>
+                        <div style="clear:both;display:table;"></div>
+                    </div>
+                <?php else : ?>
+                    <?php foreach ($details as $detail): ?>
+                        <div class="pptrack-info-row">
+                            <div>
+                                <div class="pptrack-info-row-date"><?php echo $detail->getEventDate(); ?>
+                                    <br/><?php echo $detail->getEventTime(); ?></div>
+                                <div class="pptrack-info-row-details-wrapper">
+                                    <div class="pptrack-info-row-details">
+                                        <?php echo $detail->getStatusString(); ?>
+                                        <div
+                                            class="pptrack-info-row-details-location"><?php echo $detail->getLocation() ?></div>
+                                    </div>
+                                </div>
+                                <div style="clear:both;display:table;"></div>
+                            </div>
+                        </div>
+                    <?php endforeach; ?>
+                <?php endif; ?>
+            </div>
+        </div>
+        <div class="pptrack-tracking-general-info">
+            <h2>Info</h2>
+
+            <div class="pptrack-tracking-general-info-details">
+                <div class="pptrack-tracking-row">
+                    <span class="pptrack-tracking-general-info-label"><?php echo $this->__('Order number'); ?></span>
+                    <span class="pptrack-tracking-general-info-value"><?php echo $model->getOrderNumber(); ?></span>
+                    <br style="clear: both;"/>
+                </div>
+                <div class="pptrack-tracking-row">
+                    <span class="pptrack-tracking-general-info-label"><?php echo $this->__('Tracking code'); ?></span>
+                    <span class="pptrack-tracking-general-info-value"><?php echo $model->getCode(); ?></span>
+                    <br style="clear: both;"/>
+                </div>
+                <div class="pptrack-tracking-row">
+                    <span class="pptrack-tracking-general-info-label"><?php echo $this->__('Shipped on'); ?></span>
+                    <span class="pptrack-tracking-general-info-value"><?php echo $model->getShippingDate(); ?></span>
+                    <br style="clear: both;"/>
+                </div>
+                <div class="pptrack-tracking-row">
+                    <span class="pptrack-tracking-general-info-label"><?php echo $this->__('Ships to'); ?></span>
+                    <span
+                        class="pptrack-tracking-general-info-value"><?php echo $shippingInfo['firstname'] . ' ' . $shippingInfo['lastname']; ?>
+                        <br/><?php echo $shippingInfo['street'] . ', ' . $shippingInfo['city']; ?>
+                        <br/><?php echo $shippingInfo['region'] ? $shippingInfo['region'] . '<br />' : ''; ?><?php echo $shippingInfo['postcode']; ?> <?php echo Mage::app()->getLocale()->getCountryTranslation($shippingInfo['country_id']); ?></span>
+                    <br style="clear: both;"/>
+                </div>
+
+                <br/>
+
+                <div class="pptrack-tracking-carrier-info-wrapper">
+                    <span><?php echo $this->__('For questions regarding your shipment contact carrier directly'); ?></span><br/>
+                    <br/>
+
+                    <div class="pptrack-tracking-courier-logo">
+                        <img src="<?php echo $model->getCarrierIcon() ?>"/>
+                    </div>
+                    <div class="pptrack-tracking-courier-info">
+                        <h3><?php echo $model->getCarrierName() ?></h3>
+                        <?php
+                        $phone = $model->getCarrierPhone();
+                        $homepage = $model->getCarrierHomepage();
+                        ?>
+                        <?php if ($phone) : ?>
+                            <span><?php echo $phone ?></span><br/>
+                        <?php endif; ?>
+                        <?php if ($homepage) : ?>
+                            <a href="<?php echo $homepage ?>"><?php echo $homepage ?></a>
+                        <?php endif; ?>
+                    </div>
+                    <div style="clear:both;"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+<?php endif; ?>

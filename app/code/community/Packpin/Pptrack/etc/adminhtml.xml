@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<config>
+    <layout>
+        <updates>
+            <pptrack>
+                <file>pptrack.xml</file>
+            </pptrack>
+        </updates>
+    </layout>
+    <acl>
+        <resources>
+            <admin>
+                <children>
+                    <system>
+                        <children>
+                            <config>
+                                <children>
+                                    <pp_section_setttings translate="title" module="pptrack">
+                                        <title>Packpin General Settings Section</title>
+                                        <sort_order>51001</sort_order>
+                                    </pp_section_setttings>
+                                    <pp_section_notification_emails translate="title" module="pptrack">
+                                        <title>Packpin Notification Emails</title>
+                                        <sort_order>51002</sort_order>
+                                    </pp_section_notification_emails>
+                                    <pp_section_carriers translate="title" module="pptrack">
+                                        <title>Packpin Carrier Settings</title>
+                                        <sort_order>51003</sort_order>
+                                    </pp_section_carriers>
+                                </children>
+                            </config>
+                        </children>
+                    </system>
+                </children>
+            </admin>
+        </resources>
+    </acl>
+</config>

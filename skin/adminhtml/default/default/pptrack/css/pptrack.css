@@ -1,0 +1,13 @@
+ul.tabs a.packpin-settings span,
+ul.tabs a.packpin-settings:hover span {
+    background-image: url("../images/pp_logo1.png");
+    background-repeat: no-repeat;
+    background-position: 17px center;
+    line-height: 24px;
+    padding-left: 43px;
+    border-bottom: 1px dotted;
+}
+ul.tabs dd:last-child a.packpin-settings span,
+ul.tabs dd:last-child a.packpin-settings:hover span {
+    border-bottom: none;
+}

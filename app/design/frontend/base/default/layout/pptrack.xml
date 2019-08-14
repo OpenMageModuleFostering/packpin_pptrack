@@ -1,0 +1,50 @@
+<?xml version="1.0"?>
+<layout version="1.0.0">
+    <pptrack_index_index>
+        <reference name="root">
+            <action method="setTemplate">
+                <template>page/1column.phtml</template>
+            </action>
+        </reference>
+        <reference name="head">
+            <action method="addCss">
+                <stylesheet>css/pptrack.css</stylesheet>
+            </action>
+        </reference>
+        <reference name="content">
+            <block type="pptrack/index" name="pptrack_index" template="pptrack/index.phtml">
+                <block type="pptrack/crosssell" name="pptrack_crosssell" template="pptrack/crosssell.phtml"/>
+            </block>
+        </reference>
+    </pptrack_index_index>
+    <pptrack_index_popup>
+        <reference name="root">
+            <action method="setTemplate">
+                <template>page/popup.phtml</template>
+            </action>
+        </reference>
+        <reference name="head">
+            <action method="addCss">
+                <stylesheet>css/pptrack.css</stylesheet>
+            </action>
+        </reference>
+        <reference name="content">
+            <block type="pptrack/index" name="pptrack_popup" template="pptrack/popup.phtml"/>
+        </reference>
+    </pptrack_index_popup>
+    <pptrack_unsubscribe_index>
+        <reference name="root">
+            <action method="setTemplate">
+                <template>page/1column.phtml</template>
+            </action>
+        </reference>
+        <reference name="head">
+            <action method="addCss">
+                <stylesheet>css/pptrack.css</stylesheet>
+            </action>
+        </reference>
+        <reference name="content">
+            <block type="pptrack/index" name="pptrack_unsubscribe_index" template="pptrack/unsubscribe.phtml"/>
+        </reference>
+    </pptrack_unsubscribe_index>
+</layout>
