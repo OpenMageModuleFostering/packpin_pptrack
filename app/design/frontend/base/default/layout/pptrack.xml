@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<layout version="1.0.0">
+<layout version="1.2.0">
     <pptrack_index_index>
         <reference name="root">
             <action method="setTemplate">
@@ -14,6 +14,8 @@
         <reference name="content">
             <block type="pptrack/index" name="pptrack_index" template="pptrack/index.phtml">
                 <block type="pptrack/crosssell" name="pptrack_crosssell" template="pptrack/crosssell.phtml"/>
+                <block type="pptrack/ads" name="pptrack_ads" template="pptrack/ads.phtml"/>
+                <block type="pptrack/script" name="pptrack_script" template="pptrack/script.phtml"/>
             </block>
         </reference>
     </pptrack_index_index>

@@ -20,3 +20,15 @@ ul.tabs dd:last-child a.packpin-settings:hover span {
 .packpin-notice-date {
     color: red;
 }
+#row_pp_section_setttings_crosssell_cross_sell_email td {
+    border-top: 3px solid #6f8992 !important;
+    padding-top: 15px !important;
+}
+#intercom-container .intercom-launcher-button {
+    width: 105px !important;
+    height: 40px !important;
+    background: #c03a2b url("https://packpin.com/packpinSupportLogo.png") no-repeat center center !important;
+    -webkit-border-radius: 20px !important;
+    -moz-border-radius: 20px !important;
+    border-radius: 20px !important;
+}

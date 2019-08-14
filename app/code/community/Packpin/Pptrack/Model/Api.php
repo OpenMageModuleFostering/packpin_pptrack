@@ -94,18 +94,22 @@ class Packpin_Pptrack_Model_Api extends Mage_Api_Model_Resource_Abstract
                 $emailTemplate->loadDefault($templateId, $localeCode);
             }
 
-
+            $crossSell = '';
+            $banner = '';
             if (Mage::getStoreConfig('pp_section_setttings/crosssell/cross_sell_email')) {
-                $crossSell = Mage::app()->getLayout()->createBlock('pptrack/crosssell')->setData(array('orderId' => $trackModel->getOrderId()))->setTemplate('pptrack/crosssell_email.phtml')->toHtml();
-            }
-            else {
-                $crossSell = '';
+                if (in_array(Mage::getStoreConfig('pp_section_setttings/crosssell/cross_sell_email_type'), array('ads'))) {
+                    $banner = Mage::app()->getLayout()->createBlock('pptrack/ads')->setData()->setTemplate('pptrack/ads_email.phtml')->toHtml();
+                }
+                else {
+                    $crossSell = Mage::app()->getLayout()->createBlock('pptrack/crosssell')->setData(array('orderId' => $trackModel->getOrderId()))->setTemplate('pptrack/crosssell_email.phtml')->toHtml();
+                }
             }
 
             $variables = array(
                 'email' => $order->getCustomerEmail(),
                 'track' => $trackModel,
-                'crossSell' => $crossSell
+                'crossSell' => $crossSell,
+                'banner' => $banner,
             );
 
             $processedTemplate = $emailTemplate->getProcessedTemplate($variables);

@@ -341,3 +341,19 @@ ul.pptrack-products-grid > li img {
 .clearfix:after {
     clear: both;
 }
+.pptrack-top-image,
+.pptrack-top-image a {
+    display: block;
+    text-align: center;
+    width: 100%;
+    margin-bottom: 30px;
+    overflow: auto;
+}
+.pptrack-top-image a {
+    text-decoration: none;
+}
+.pptrack-top-image img {
+    max-width: 100%;
+    height: auto;
+    margin: 0 auto;
+}

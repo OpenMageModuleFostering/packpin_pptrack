@@ -1,0 +1,68 @@
+<script>
+    //Event.observe(window, 'load', function() {
+    //Event.observe('points_options_config_points_expiration_period', 'change', checkExpirationPeriod);
+    //checkExpirationPeriod();
+    //})
+    function checkCrossInputs() {
+        var v1 = $('pp_section_setttings_crosssell_cross_sell_page_type').value;
+        var v2 = $('pp_section_setttings_crosssell_cross_sell_email_type').value;
+
+        if (v1 == 'products') {
+            $('row_pp_section_setttings_crosssell_cross_sell_page_image').hide();
+            $('row_pp_section_setttings_crosssell_cross_sell_page_image_url').hide();
+            $('row_pp_section_setttings_crosssell_cross_sell_page_script').hide();
+            $('row_pp_section_setttings_crosssell_cross_sell_page_items').show();
+        }
+        else if (v1 == 'ads') {
+            $('row_pp_section_setttings_crosssell_cross_sell_page_image').show();
+            $('row_pp_section_setttings_crosssell_cross_sell_page_image_url').show();
+            $('row_pp_section_setttings_crosssell_cross_sell_page_items').hide();
+            $('row_pp_section_setttings_crosssell_cross_sell_page_script').hide();
+        }
+        else {
+            $('row_pp_section_setttings_crosssell_cross_sell_page_script').show();
+            $('row_pp_section_setttings_crosssell_cross_sell_page_image').hide();
+            $('row_pp_section_setttings_crosssell_cross_sell_page_image_url').hide();
+            $('row_pp_section_setttings_crosssell_cross_sell_page_items').hide();
+        }
+
+        if (v2 == 'products') {
+            $('row_pp_section_setttings_crosssell_cross_sell_email_image').hide();
+            $('row_pp_section_setttings_crosssell_cross_sell_email_image_url').hide();
+            $('row_pp_section_setttings_crosssell_cross_sell_email_items').show();
+        }
+        else if (v2 == 'ads') {
+            $('row_pp_section_setttings_crosssell_cross_sell_email_image').show();
+            $('row_pp_section_setttings_crosssell_cross_sell_email_image_url').show();
+            $('row_pp_section_setttings_crosssell_cross_sell_email_items').hide();
+        }
+        else {
+            $('row_pp_section_setttings_crosssell_cross_sell_email_image').show();
+            $('row_pp_section_setttings_crosssell_cross_sell_email_image_url').show();
+            $('row_pp_section_setttings_crosssell_cross_sell_email_items').show();
+        }
+
+    }
+
+    Event.observe(window, "load", function() {
+        checkCrossInputs();
+        Event.observe('pp_section_setttings_crosssell_cross_sell_page_type', 'change', checkCrossInputs);
+        Event.observe('pp_section_setttings_crosssell_cross_sell_email_type', 'change', checkCrossInputs);
+    });
+
+    //for packpin chat
+    <?php $user = Mage::getSingleton('admin/session');  ?>
+    window.intercomSettings = {
+        "plugin": "magento",
+        name:       "<?php echo $user->getUser()->getFirstname() . ' ' . $user->getUser()->getLastname() ?>",
+        email:      "<?php echo $user->getUser()->getEmail() ?>",
+        app_id:     "n806bjdu",
+        "api_key":              "<?php echo Mage::getStoreConfig('pp_section_setttings/settings/api_key') ?>",
+        "plugin_version":       "<?php echo (string) Mage::getConfig()->getNode()->modules->Packpin_Pptrack->version ?>",
+        "plugin_shop_version":  "<?php echo Mage::getVersion() ?>",
+        "shop_name":            "<?php echo Mage::getStoreConfig('trans_email/ident_general/name') ?>",
+        "shop_email":           "<?php echo Mage::getStoreConfig('trans_email/ident_general/email') ?>",
+        "shop_url":             "<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_WEB) ?>"
+    };
+    (function(){var w=window;var ic=w.Intercom;if(typeof ic==="function"){ic('reattach_activator');ic('update',intercomSettings);}else{var d=document;var i=function(){i.c(arguments)};i.q=[];i.c=function(args){i.q.push(args)};w.Intercom=i;function l(){var s=d.createElement('script');s.type='text/javascript';s.async=true;s.src='https://widget.intercom.io/widget/n806bjdu';var x=d.getElementsByTagName('script')[0];x.parentNode.insertBefore(s,x);}if(w.attachEvent){w.attachEvent('onload',l);}else{w.addEventListener('load',l,false);}}})();
+</script>

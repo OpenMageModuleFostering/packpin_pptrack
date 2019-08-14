@@ -10,10 +10,24 @@ $_helper = $this->helper('catalog/output');
 
 <?php
 if (Mage::getStoreConfig('pp_section_setttings/crosssell/cross_sell_page')) {
-    $child = $this->getChild("pptrack_crosssell");
-    if ($child) {
-        $child->setData("orderId", $model->getOrderId());
-        echo $this->getChildHtml('pptrack_crosssell');
+    if (in_array(Mage::getStoreConfig('pp_section_setttings/crosssell/cross_sell_page_type'), array('script'))) {
+        $child = $this->getChild("pptrack_script");
+        if ($child) {
+            echo $this->getChildHtml('pptrack_script');
+        }
+    }
+    if (in_array(Mage::getStoreConfig('pp_section_setttings/crosssell/cross_sell_page_type'), array('ads', 'both'))) {
+        $child = $this->getChild("pptrack_ads");
+        if ($child) {
+            echo $this->getChildHtml('pptrack_ads');
+        }
+    }
+    if (in_array(Mage::getStoreConfig('pp_section_setttings/crosssell/cross_sell_page_type'), array('products', 'both'))) {
+        $child = $this->getChild("pptrack_crosssell");
+        if ($child) {
+            $child->setData("orderId", $model->getOrderId());
+            echo $this->getChildHtml('pptrack_crosssell');
+        }
     }
 }
 ?>

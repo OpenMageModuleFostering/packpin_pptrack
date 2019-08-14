@@ -1,0 +1,15 @@
+<?php
+    $image = $this->getImage();
+    $url = $this->getUrl();
+?>
+<?php if ($image) : ?>
+<div class="pptrack-top-image" style="margin-top:5px;text-align:center;width:100%;">
+    <?php if ($url) : ?>
+        <a style="display:block;text-align:center;width:100%;text-decoration: none;" href="<?php echo $url ?>" target="_blank">
+    <?php endif; ?>
+            <img style="max-width: 100%;height: auto;margin: 0 auto;" src="<?php echo $image ?>" alt="">
+    <?php if ($url) : ?>
+        </a>
+    <?php endif; ?>
+</div>
+<?php endif; ?>

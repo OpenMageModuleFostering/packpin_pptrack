@@ -75,7 +75,7 @@ class Packpin_Pptrack_Model_Enablenotifications extends Mage_Core_Model_Config_D
                 $info = $helper->enableConnector($notificationStatus);
 
                 if(!$info OR $info['statusCode'] == 400) {
-                    if($info['body']['reason'] && !empty($info['body']['reason'])) {
+                    if(isset($info['body']['reason']) && !empty($info['body']['reason'])) {
                         Mage::throwException('Could not enable notifications: '.$info['body']['reason']);
                     }
                     else {

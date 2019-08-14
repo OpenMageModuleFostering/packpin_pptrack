@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<layout version="1.0.0">
+<layout version="1.2.0">
     <adminhtml_system_config_edit>
         <reference name="head">
             <action method="addCss">
