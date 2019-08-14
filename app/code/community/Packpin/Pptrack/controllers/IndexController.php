@@ -18,32 +18,6 @@ class Packpin_Pptrack_IndexController extends Mage_Core_Controller_Front_Action
             "title" => Mage::helper('pptrack')->__("Shipment status")
         ));
 
-        //log user session
-        try {
-            $trackId = $model->getId();
-            $ip = isset($_SERVER["REMOTE_ADDR"]) ? $_SERVER["REMOTE_ADDR"] : '';
-            $agent = isset($_SERVER["HTTP_USER_AGENT"]) ? $_SERVER["HTTP_USER_AGENT"] : null;
-
-            $userHash = md5($trackId . $ip . $agent);
-
-            $model = Mage::getModel('pptrack/visit')
-                ->getCollection()
-                ->addFieldToFilter('user_hash', array('eq' => $userHash))
-                ->addFieldToFilter("DATE_ADD(created_at, INTERVAL 1 DAY)", array('gteq' => date("Y-m-d H:i:s")))
-//                ->addFieldToFilter("DATE_ADD(created_at, INTERVAL 1 DAY)", array('gteq' => new Zend_Db_Expr('NOW()')))
-                ->getFirstItem();
-            if (!$model->getId()) {
-                $model->track_id = $trackId;
-                $model->user_hash = $userHash;
-                $model->user_ip = $ip;
-                $model->user_agent = $agent;
-                $model->save();
-            }
-        }
-        catch (Exception $e) {
-
-        }
-
 
         $this->renderLayout();
 
