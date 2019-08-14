@@ -147,9 +147,14 @@ class Packpin_Pptrack_Model_Carrier extends Mage_Core_Model_Abstract
         $carrierList = $this->getAssocList();
 
         $carrierCode = str_replace(Packpin_Pptrack_Model_Carrier::CODE_PREFIX, '', $carrierCode);
+        $carrierCode2 = str_replace(Packpin_Pptrack_Model_Carrier::CODE_PREFIX, '', $carrierTitle);
 
         if (isset($carrierList[$carrierCode])) {
             return $carrierCode;
+        } elseif (isset($carrierList[$carrierCode2])) {
+            return $carrierCode2;
+        } elseif (isset($carrierList[$carrierTitle])) {
+            return $carrierTitle;
         }
 
         //try to identify by custom carrier code

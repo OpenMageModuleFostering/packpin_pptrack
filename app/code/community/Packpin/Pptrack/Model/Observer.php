@@ -123,6 +123,12 @@ class Packpin_Pptrack_Model_Observer
         if (!$carrierCode)
             return false;
 
+        // replace custom carrier with real one if needed
+        if ($trackData['carrier_code'] === 'custom') {
+            $track->setCarrierCode(Packpin_Pptrack_Model_Carrier::CODE_PREFIX . $carrierCode);
+            $track->save();
+        }
+
         $trackingCode = $this->_getTrackingCode($trackData);
         $email = trim($orderData['customer_email']) ? $orderData['customer_email'] : null;
         $phone = trim($addressData['telephone']) ? $addressData['telephone'] : null;
