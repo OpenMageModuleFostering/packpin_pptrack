@@ -13,6 +13,21 @@ $data = $rangeStats['graph'];
     </table>
 </div>
 
+<?php if (!$this->pluginEnabled() || !$this->notificationsEnabled()) : ?>
+<ul class="messages">
+    <li class="error-msg">
+        <ul>
+            <li>
+                <span>
+                    <?php echo !$this->pluginEnabled() ? Mage::helper('pptrack')->__('Packpin extension is disabled.') : Mage::helper('pptrack')->__('Packpin notifications are disabled.') ?>
+                    <a href="<?php echo $this->getUrl('adminhtml/system_config/edit/section/pp_section_setttings') ?>"><?php echo Mage::helper('pptrack')->__('Click here') ?></a> <?php echo Mage::helper('pptrack')->__('to change your settings') ?>
+                </span>
+            </li>
+        </ul>
+    </li>
+</ul>
+<?php endif; ?>
+
 <div id="dashboard_diagram_totals" class="box">
     <div class="entry-edit">
         <table width="100%" cellspacing="0">
@@ -94,7 +109,9 @@ $data = $rangeStats['graph'];
     </table>
     <div id="graph1"></div>
 </div>
-
+<br>
+<br>
+<br>
 <script type="text/javascript">
     var rangeInfo = <?php echo json_encode($rangeInfo) ?>;
 
@@ -146,5 +163,20 @@ $data = $rangeStats['graph'];
         resize: false,
         xLabels: "day"
     });
+
+    <?php $user = Mage::getSingleton('admin/session');  ?>
+    window.intercomSettings = {
+        "plugin": "magento",
+        name:       "<?php echo $user->getUser()->getFirstname() . ' ' . $user->getUser()->getLastname() ?>",
+        email:      "<?php echo $user->getUser()->getEmail() ?>",
+        app_id:     "n806bjdu",
+        "api_key":              "<?php echo Mage::getStoreConfig('pp_section_setttings/settings/api_key') ?>",
+        "plugin_version":       "<?php echo (string) Mage::getConfig()->getNode()->modules->Packpin_Pptrack->version ?>",
+        "plugin_shop_version":  "<?php echo Mage::getVersion() ?>",
+        "shop_name":            "<?php echo Mage::getStoreConfig('trans_email/ident_general/name') ?>",
+        "shop_email":           "<?php echo Mage::getStoreConfig('trans_email/ident_general/email') ?>",
+        "shop_url":             "<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_WEB) ?>"
+    };
+    (function(){var w=window;var ic=w.Intercom;if(typeof ic==="function"){ic('reattach_activator');ic('update',intercomSettings);}else{var d=document;var i=function(){i.c(arguments)};i.q=[];i.c=function(args){i.q.push(args)};w.Intercom=i;function l(){var s=d.createElement('script');s.type='text/javascript';s.async=true;s.src='https://widget.intercom.io/widget/n806bjdu';var x=d.getElementsByTagName('script')[0];x.parentNode.insertBefore(s,x);}if(w.attachEvent){w.attachEvent('onload',l);}else{w.addEventListener('load',l,false);}}})();
 
 </script>

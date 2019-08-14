@@ -1,9 +1,12 @@
 <?xml version="1.0"?>
-<layout version="1.3.0">
+<layout version="1.3.3">
     <adminhtml_packpintracks_dashboard>
         <reference name="head">
             <action method="addCss">
                 <name>pptrack/css/dashboard.css</name>
+            </action>
+            <action method="addCss">
+                <name>pptrack/css/pptrack.css</name>
             </action>
             <action method="addItem">
                 <type>skin_js</type>
@@ -12,6 +15,7 @@
         </reference>
         <reference name="content">
             <block type="pptrack/adminhtml_dashboard" name="pptrack_adminhtml_trackings.dashboard" template="pptrack/dashboard/index.phtml"/>
+            <block type="pptrack/adminhtml_tracks" name="pptrack_tracks" />
         </reference>
     </adminhtml_packpintracks_dashboard>
     <adminhtml_system_config_edit>

@@ -129,7 +129,7 @@ class Packpin_Pptrack_Block_Adminhtml_Dashboard extends Mage_Adminhtml_Block_Das
             ->addFieldToFilter("DATE(created_at)", array('lteq' => $end))
             ->getSize();
 
-        $stats['average'] = $stats['visits'] / $stats['trackings'];
+        $stats['average'] = $stats['trackings'] ? $stats['visits'] / $stats['trackings'] : 0;
 
         //email stats
         $helper = Mage::helper('pptrack');
@@ -196,6 +196,16 @@ class Packpin_Pptrack_Block_Adminhtml_Dashboard extends Mage_Adminhtml_Block_Das
         $stats['graph'] = $data;
 
         return $stats;
+    }
+
+    public function pluginEnabled()
+    {
+        return Mage::getStoreConfig('pp_section_setttings/settings/status');
+    }
+
+    public function notificationsEnabled()
+    {
+        return Mage::getStoreConfig('pp_section_setttings/settings/pp_enable_notifications');
     }
 
 }
