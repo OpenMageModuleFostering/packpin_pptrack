@@ -20,7 +20,8 @@ if (Mage::getStoreConfig('pp_section_setttings/crosssell/cross_sell_page')) {
             echo $this->getChildHtml('pptrack_ads');
         }
     }
-    if (in_array(Mage::getStoreConfig('pp_section_setttings/crosssell/cross_sell_page_type'), array('products', 'both'))) {
+    if (in_array(Mage::getStoreConfig('pp_section_setttings/crosssell/cross_sell_page_type'),
+        array('products', 'both'))) {
         $child = $this->getChild("pptrack_crosssell");
         if ($child) {
             $child->setData("orderId", $this->orderId);
@@ -37,174 +38,185 @@ $customImage = $imageType === 'custom' && !empty($image) ? Mage::getBaseUrl('med
 
 <div class="clearfix"></div>
 <?php if ($this->trackingType === 1) : ?>
-<h2><?php echo Mage::helper('pptrack')->__('Track your order'); ?></h2>
-<div class="clearfix"></div>
-<form class="pptrack-form pptrack-boxmodel" method="get" action="">
-    <div class="pptrack-row">
-        <div class="pptrack-form-controls">
-            <label class="pptrack-label" for="pp_email"><?php echo Mage::helper('pptrack')->__('Your email'); ?></label>
-            <input value="<?php echo $this->email ?>" id="pp_email" class="pptrack-input" name="email" type="text" required>
+    <h2><?php echo Mage::helper('pptrack')->__('Track your order'); ?></h2>
+    <div class="clearfix"></div>
+    <form class="pptrack-form pptrack-boxmodel" method="get" action="">
+        <div class="pptrack-row">
+            <div class="pptrack-form-controls">
+                <label class="pptrack-label"
+                       for="pp_email"><?php echo Mage::helper('pptrack')->__('Your email'); ?></label>
+                <input value="<?php echo $this->email ?>" id="pp_email" class="pptrack-input" name="email" type="text"
+                       required>
+            </div>
+            <div class="pptrack-form-controls">
+                <label class="pptrack-label"
+                       for="pp_order"><?php echo Mage::helper('pptrack')->__('Order number'); ?></label>
+                <input value="<?php echo $this->orderNumber ?>" id="pp_order" class="pptrack-input" name="order"
+                       type="text" required>
+            </div>
         </div>
-        <div class="pptrack-form-controls">
-            <label class="pptrack-label" for="pp_order"><?php echo Mage::helper('pptrack')->__('Order number'); ?></label>
-            <input value="<?php echo $this->orderNumber ?>" id="pp_order" class="pptrack-input" name="order"
-                   type="text" required>
-        </div>
-    </div>
-    <button class="btn button pptrack-btn" type="submit"><?php echo Mage::helper('pptrack')->__('Submit'); ?></button>
-</form>
+        <button class="btn button pptrack-btn"
+                type="submit"><?php echo Mage::helper('pptrack')->__('Submit'); ?></button>
+    </form>
 <?php endif; ?>
 <?php if ($this->msg) : ?>
-<div class="pptrack-info">
-    <?php echo $this->msg ?>
-</div>
+    <div class="pptrack-info">
+        <?php echo $this->msg ?>
+    </div>
 <?php endif; ?>
 
-<?php foreach($this->trackModels as $model) : ?>
-<?php
+<?php foreach ($this->trackModels as $model) : ?>
+    <?php
     $count++;
     $shippingInfo = $model->getShippingInfo();
-?>
-<br>
-<div class="clearfix"></div>
-<?php if (!$model->getStatus()): ?>
+    ?>
     <br>
-    <br>
-    <h2><?php echo Mage::helper('pptrack')->__('No tracking info!'); ?></h2>
-    <br>
-<?php else: ?>
+    <div class="clearfix"></div>
+    <?php if (!$model->getStatus()): ?>
+        <br>
+        <br>
+        <h2><?php echo Mage::helper('pptrack')->__('No tracking info!'); ?></h2>
+        <br>
+    <?php else: ?>
 
-    <div class="pptrack-wrapper pptrack-v2 pptrack-boxmodel clearfix">
-        <div class="pptrack-v2-row clearfix">
-            <div id="pptrack-v2-block-track-back<?php echo $count ?>" class="pptrack-v2-block" style="display:none;">
-                <div class="pptrack-v2-block-inner pptrack-v2-block-inner-res">
-                    <div class="pptrack-v2-title1"><?php echo Mage::helper('pptrack')->__('ESTIMATED DELIVERY DATE & DETAILS'); ?></div>
-                    <div class="pptrack-v2-details">
-                        <?php $details = $model->getDetails(); ?>
-                        <?php if (!$details) : ?>
-                            <div class="pptrack-v2-info-row">
-                                <div class="pptrack-v2-info-row-date">
-                                    <?php echo date("M j", $model->created_at) ?>,
-                                    <?php echo date("H:i:s", $model->created_at) ?>
-                                </div>
-                                <div class="pptrack-info-row-details-wrapper">
-                                    <div class="pptrack-v2-info-row-details">
-                                        <?php if ($model->status == Packpin_Pptrack_Model_Track::STATUS_PENDING) : ?>
-                                            <?php echo Mage::helper('pptrack')->__("Package status pending"); ?>
-                                        <?php else : ?>
-                                            <?php echo Mage::helper('pptrack')->__("Package prepared for dispatch"); ?>
-                                        <?php endif; ?>
-                                    </div>
-                                </div>
-                            </div>
-                        <?php else : ?>
-                            <?php foreach ($details as $detail): ?>
+        <div class="pptrack-wrapper pptrack-v2 pptrack-boxmodel clearfix">
+            <div class="pptrack-v2-row clearfix">
+                <div id="pptrack-v2-block-track-back<?php echo $count ?>" class="pptrack-v2-block"
+                     style="display:none;">
+                    <div class="pptrack-v2-block-inner pptrack-v2-block-inner-res">
+                        <div class="pptrack-v2-title1"><?php echo Mage::helper('pptrack')->__('ESTIMATED DELIVERY DATE & DETAILS'); ?></div>
+                        <div class="pptrack-v2-details">
+                            <?php $details = $model->getDetails(); ?>
+                            <?php if (!$details) : ?>
                                 <div class="pptrack-v2-info-row">
-                                    <div>
-                                        <div class="pptrack-v2-info-row-date">
-                                            <?php echo date("M j", strtotime($detail->getEventDate())); ?>,
-                                            <?php echo $detail->getEventTime(); ?>
-                                        </div>
+                                    <div class="pptrack-v2-info-row-date">
+                                        <?php echo date("M j", $model->created_at) ?>,
+                                        <?php echo date("H:i:s", $model->created_at) ?>
+                                    </div>
+                                    <div class="pptrack-info-row-details-wrapper">
                                         <div class="pptrack-v2-info-row-details">
-                                            <?php echo Mage::helper('pptrack')->__($detail->getStatusString()); ?>
-                                            <div
-                                                class="pptrack-v2-info-row-details-location"><?php echo $detail->getLocation() ?></div>
+                                            <?php if ($model->status == Packpin_Pptrack_Model_Track::STATUS_PENDING) : ?>
+                                                <?php echo Mage::helper('pptrack')->__("Package status pending"); ?>
+                                            <?php else : ?>
+                                                <?php echo Mage::helper('pptrack')->__("Package prepared for dispatch"); ?>
+                                            <?php endif; ?>
                                         </div>
                                     </div>
                                 </div>
-                            <?php endforeach; ?>
-                        <?php endif; ?>
+                            <?php else : ?>
+                                <?php foreach ($details as $detail): ?>
+                                    <div class="pptrack-v2-info-row">
+                                        <div>
+                                            <div class="pptrack-v2-info-row-date">
+                                                <?php echo date("M j", strtotime($detail->getEventDate())); ?>,
+                                                <?php echo $detail->getEventTime(); ?>
+                                            </div>
+                                            <div class="pptrack-v2-info-row-details">
+                                                <?php echo Mage::helper('pptrack')->__($detail->getStatusString()); ?>
+                                                <div
+                                                        class="pptrack-v2-info-row-details-location"><?php echo $detail->getLocation() ?></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                <?php endforeach; ?>
+                            <?php endif; ?>
+                        </div>
+                        <div id="pptrack-v2-track-link2"
+                             onclick="ppShowFront(<?php echo $count ?>)"><?php echo Mage::helper('pptrack')->__('BACK'); ?></div>
                     </div>
-                    <div id="pptrack-v2-track-link2" onclick="ppShowFront(<?php echo $count ?>)"><?php echo Mage::helper('pptrack')->__('BACK'); ?></div>
                 </div>
-            </div>
-            <div id="pptrack-v2-block-track-front<?php echo $count ?>" class="pptrack-v2-block">
-                <div class="pptrack-v2-block-inner">
-                    <div class="pptrack-v2-title1"><?php echo Mage::helper('pptrack')->__('ESTIMATED DELIVERY DATE & DETAILS'); ?></div>
-                    <?php if ($model->apiResponseData && isset($model->apiResponseData['estimated_delivery']) && $model->apiResponseData['estimated_delivery']) : ?>
-                    <?php $dateTime = new DateTime($model->apiResponseData['estimated_delivery']);
+                <div id="pptrack-v2-block-track-front<?php echo $count ?>" class="pptrack-v2-block">
+                    <div class="pptrack-v2-block-inner">
+                        <div class="pptrack-v2-title1"><?php echo Mage::helper('pptrack')->__('ESTIMATED DELIVERY DATE & DETAILS'); ?></div>
+                        <?php if ($model->apiResponseData && isset($model->apiResponseData['estimated_delivery']) && $model->apiResponseData['estimated_delivery']) : ?>
+                            <?php $dateTime = new DateTime($model->apiResponseData['estimated_delivery']);
                             $day = $dateTime->format('d');
                             $weekday = $dateTime->format('l');
                             $month = $dateTime->format('M');
-                    ?>
-                    <div class="pptrack-v2-est clearfix">
-                        <div class="pptrack-v2-est-day"><?php echo $day ?></div>
-                        <div class="pptrack-v2-est-det">
-                            <div class="pptrack-v2-est-weekday"><?php echo $weekday ?></div>
-                            <div class="pptrack-v2-est-month"><?php echo $month ?></div>
-                            <div class="pptrack-v2-est-status"><?php echo $model->getStatusString() ?></div>
-                        </div>
-                    </div>
-                    <?php else: ?>
-                    <div class="pptrack-v2-est clearfix">
-                        <div class="pptrack-v2-est-status2"><?php echo $model->getStatusString() ?></div>
-                    </div>
-                    <?php endif; ?>
-                    <?php if ($this->trackingType === 1) : ?>
-                    <div class="pptrack-v2-label1"><?php echo Mage::helper('pptrack')->__('Delivery Location:'); ?></div>
-                    <div class="pptrack-v2-value1">
-                        <?php echo $shippingInfo['street'] . ', ' . $shippingInfo['city']; ?>
-                        , <?php echo $shippingInfo['postcode']; ?> <?php echo Mage::app()->getLocale()->getCountryTranslation($shippingInfo['country_id']); ?>
-                    </div>
-                    <?php endif; ?>
-                    <div class="pptrack-v2-label1" style="margin-top:10px;"><?php echo Mage::helper('pptrack')->__('Tracking Number:'); ?></div>
-                    <div class="pptrack-v2-value1"><?php echo $model->getCode(); ?></div>
-                    <div id="pptrack-v2-track-link" onclick="ppShowBack(<?php echo $count ?>)"><?php echo Mage::helper('pptrack')->__('TRACK IT'); ?></div>
-                </div>
-            </div>
-            <div class="pptrack-v2-block pptrack-v2-block-hide-small">
-                <div class="pptrack-v2-block-inner">
-                    <div class="pptrack-v2-title2"><?php echo Mage::helper('pptrack')->__('STAY IN THE KNOW'); ?></div>
-                    <?php if ($this->trackingType === 1) : ?>
-                    <div class="clearfix" style="margin-top:90px;">
-                        <div class="pptrack-v2-label2"><?php echo Mage::helper('pptrack')->__('Order Number'); ?></div>
-                        <div class="pptrack-v2-value2"><?php echo $model->getOrderNumber(); ?></div>
-                    </div>
-                    <div class="clearfix">
-                        <div class="pptrack-v2-label2"><?php echo Mage::helper('pptrack')->__('Tracking Number'); ?></div>
-                        <div class="pptrack-v2-value2"><?php echo $model->getCode(); ?></div>
-                    </div>
-                    <div class="clearfix">
-                        <div class="pptrack-v2-label2"><?php echo Mage::helper('pptrack')->__('Shipped On'); ?></div>
-                        <div class="pptrack-v2-value2"><?php echo $model->getShippingDate('short'); ?></div>
-                    </div>
-                    <div class="clearfix">
-                        <div class="pptrack-v2-label2"><?php echo Mage::helper('pptrack')->__('Ships To'); ?></div>
-                        <div class="pptrack-v2-value2">
-                            <?php echo $shippingInfo['firstname'] . ' ' . $shippingInfo['lastname']; ?>
-                            <br/><?php echo $shippingInfo['street'] . ', ' . $shippingInfo['city']; ?>
-                            <br/><?php echo $shippingInfo['region'] ? $shippingInfo['region'] . '<br />' : ''; ?><?php echo $shippingInfo['postcode']; ?> <?php echo Mage::app()->getLocale()->getCountryTranslation($shippingInfo['country_id']); ?>
-                        </div>
-                    </div>
-                    <?php endif; ?>
-                    <div class="pptrack-v2-carrier">
-                        <div class="pptrack-v2-carrier-logo">
-                            <img src="<?php echo $model->getCarrierIcon() ?>"/>
-                            <span class="pptrack-v2-carrier-line"></span>
-                        </div>
-                        <div class="pptrack-v2-carrier-name"><?php echo $model->getCarrierName() ?></div>
-                        <div class="pptrack-v2-carrier-det">
-                            <?php
-                            $phone = $model->getCarrierPhone();
-                            $homepage = $model->getCarrierHomepage();
                             ?>
-                            <?php if ($phone) : ?>
-                                <span><?php echo $phone ?></span><br/>
-                            <?php endif; ?>
-                            <?php if ($homepage) : ?>
-                            <a href="<?php echo $homepage ?>"><?php echo $homepage ?></a>
-                            <?php endif; ?>
+                            <div class="pptrack-v2-est clearfix">
+                                <div class="pptrack-v2-est-day"><?php echo $day ?></div>
+                                <div class="pptrack-v2-est-det">
+                                    <div class="pptrack-v2-est-weekday"><?php echo $weekday ?></div>
+                                    <div class="pptrack-v2-est-month"><?php echo $month ?></div>
+                                    <div class="pptrack-v2-est-status"><?php echo $model->getStatusString() ?></div>
+                                </div>
+                            </div>
+                        <?php else: ?>
+                            <div class="pptrack-v2-est clearfix">
+                                <div class="pptrack-v2-est-status2"><?php echo $model->getStatusString() ?></div>
+                            </div>
+                        <?php endif; ?>
+                        <?php if ($this->trackingType === 1) : ?>
+                            <div class="pptrack-v2-label1"><?php echo Mage::helper('pptrack')->__('Delivery Location:'); ?></div>
+                            <div class="pptrack-v2-value1">
+                                <?php echo $shippingInfo['street'] . ', ' . $shippingInfo['city']; ?>
+                                , <?php echo $shippingInfo['postcode']; ?> <?php echo Mage::app()->getLocale()->getCountryTranslation($shippingInfo['country_id']); ?>
+                            </div>
+                        <?php endif; ?>
+                        <div class="pptrack-v2-label1"
+                             style="margin-top:10px;"><?php echo Mage::helper('pptrack')->__('Tracking Number:'); ?></div>
+                        <div class="pptrack-v2-value1"><?php echo $model->getCode(); ?></div>
+                        <div id="pptrack-v2-track-link"
+                             onclick="ppShowBack(<?php echo $count ?>)"><?php echo Mage::helper('pptrack')->__('TRACK IT'); ?></div>
+                    </div>
+                </div>
+                <div class="pptrack-v2-block pptrack-v2-block-hide-small">
+                    <div class="pptrack-v2-block-inner">
+                        <div class="pptrack-v2-title2"><?php echo Mage::helper('pptrack')->__('STAY IN THE KNOW'); ?></div>
+                        <?php if ($this->trackingType === 1) : ?>
+                            <div class="clearfix" style="margin-top:40px;">
+                                <div class="pptrack-v2-label2"><?php echo Mage::helper('pptrack')->__('Order Number'); ?></div>
+                                <div class="pptrack-v2-value2"><?php echo $model->getOrderNumber(); ?></div>
+                            </div>
+                            <div class="clearfix">
+                                <div class="pptrack-v2-label2"><?php echo Mage::helper('pptrack')->__('Tracking Number'); ?></div>
+                                <div class="pptrack-v2-value2"
+                                     style="word-wrap: break-word;"><?php echo $model->getCode(); ?></div>
+                            </div>
+                            <div class="clearfix">
+                                <div class="pptrack-v2-label2"><?php echo Mage::helper('pptrack')->__('Shipped On'); ?></div>
+                                <div class="pptrack-v2-value2"><?php echo $model->getShippingDate('short'); ?></div>
+                            </div>
+                            <div class="clearfix">
+                                <div class="pptrack-v2-label2"><?php echo Mage::helper('pptrack')->__('Ships To'); ?></div>
+                                <div class="pptrack-v2-value2" style="word-wrap: break-word;">
+                                    <?php echo $shippingInfo['firstname'] . ' ' . $shippingInfo['lastname']; ?>
+                                    <br/><?php echo $shippingInfo['street'] . ', ' . $shippingInfo['city']; ?>
+                                    <br/><?php echo $shippingInfo['region'] ? $shippingInfo['region'] . '<br />' : ''; ?><?php echo $shippingInfo['postcode']; ?> <?php echo Mage::app()->getLocale()->getCountryTranslation($shippingInfo['country_id']); ?>
+                                </div>
+                            </div>
+                        <?php endif; ?>
+                        <div class="pptrack-v2-carrier">
+                            <div class="pptrack-v2-carrier-logo">
+                                <img src="<?php echo $model->getCarrierIcon() ?>"/>
+                                <span class="pptrack-v2-carrier-line"></span>
+                            </div>
+                            <div class="pptrack-v2-carrier-name"><?php echo $model->getCarrierName() ?></div>
+                            <div class="pptrack-v2-carrier-det">
+                                <?php
+                                $phone = $model->getCarrierPhone();
+                                $homepage = $model->getCarrierHomepage();
+                                ?>
+                                <?php if ($phone) : ?>
+                                    <span><?php echo $phone ?></span><br/>
+                                <?php endif; ?>
+                                <?php if ($homepage) : ?>
+                                    <a href="<?php echo $homepage ?>"><?php echo $homepage ?></a>
+                                <?php endif; ?>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="pptrack-v2-block pptrack-v2-block-hide-small">
-                <a target="_blank" href="<?php echo $imageLink ? $imageLink : 'javascript:void(0)' ?>" <?php echo $customImage ? 'style="background:url('. $customImage .') no-repeat center center;background-size:cover;"' : '' ?> class="pptrack-v2-block-inner <?php echo $customImage ? '' : 'pptrack-v2-block3-default' ?>"></a>
+                <div class="pptrack-v2-block pptrack-v2-block-hide-small">
+                    <a target="_blank"
+                       href="<?php echo $imageLink ? $imageLink : 'javascript:void(0)' ?>" <?php echo $customImage ? 'style="background:url(' . $customImage . ') no-repeat center center;background-size:cover;"' : '' ?>
+                       class="pptrack-v2-block-inner <?php echo $customImage ? '' : 'pptrack-v2-block3-default' ?>"></a>
+                </div>
             </div>
         </div>
-    </div>
 
-<?php endif; ?>
+    <?php endif; ?>
 <?php endforeach; ?>
 
 <script>
@@ -217,3 +229,25 @@ $customImage = $imageType === 'custom' && !empty($image) ? Mage::getBaseUrl('med
         document.querySelector("#pptrack-v2-block-track-front" + num).style.display = 'block';
     }
 </script>
+
+<?php
+if (version_compare(Mage::getVersion(), '1.9', '<')) { ?>
+    <style>
+        .pptrack-v2-est-day {
+            font-size: 102px;
+        }
+
+        .pptrack-v2-est-weekday {
+            font-size: 24px;
+        }
+
+        .pptrack-v2-label2, .pptrack-v2-value2 {
+            margin-top: 5px;
+        }
+
+        .pptrack-v2-block-inner {
+            height: 540px;
+        }
+    </style>
+    <?php
+}
