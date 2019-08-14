@@ -156,6 +156,13 @@ if (Mage::getStoreConfig('pp_section_setttings/crosssell/cross_sell_page')) {
                     <span class="pptrack-tracking-general-info-value"><?php echo $model->getCode(); ?></span>
                     <br style="clear: both;"/>
                 </div>
+                <?php if ($model->apiResponseData && isset($model->apiResponseData['estimated_delivery']) && $model->apiResponseData['estimated_delivery']) : ?>
+                <div class="pptrack-tracking-row">
+                    <span class="pptrack-tracking-general-info-label"><?php echo Mage::helper('pptrack')->__('Estimated delivery day'); ?></span>
+                    <span class="pptrack-tracking-general-info-value"><?php echo $model->getEstimatedDelivery() ?></span>
+                    <br style="clear: both;"/>
+                </div>
+                <?php endif; ?>
                 <?php if ($this->trackingType === 1) : ?>
                 <div class="pptrack-tracking-row">
                     <span class="pptrack-tracking-general-info-label"><?php echo Mage::helper('pptrack')->__('Shipped on'); ?></span>

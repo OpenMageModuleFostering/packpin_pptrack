@@ -48,6 +48,13 @@ class Packpin_Pptrack_Model_Track extends Mage_Core_Model_Abstract
     );
 
     /**
+     * Response body for last API request
+     *
+     * @var array
+     */
+    public $apiResponseData;
+
+    /**
      * Tracking details
      *
      * @var null|array
@@ -145,6 +152,7 @@ class Packpin_Pptrack_Model_Track extends Mage_Core_Model_Abstract
         //map new data to current model
         if ($res && $res["statusCode"] == 200) {
             $info = $res["body"];
+            $this->apiResponseData = $info;
 
             $this->updateInfo($info);
 
@@ -475,6 +483,13 @@ class Packpin_Pptrack_Model_Track extends Mage_Core_Model_Abstract
             ->getSize();
 
         return $count;
+    }
+
+    public function getEstimatedDelivery()
+    {
+        if (isset($this->apiResponseData['estimated_delivery'])) {
+            return Mage::helper('core')->formatDate($this->apiResponseData['estimated_delivery'], 'full', false);
+        }
     }
 
 }
