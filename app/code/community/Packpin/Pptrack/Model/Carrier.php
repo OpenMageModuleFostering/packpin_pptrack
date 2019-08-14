@@ -43,7 +43,7 @@ class Packpin_Pptrack_Model_Carrier extends Mage_Core_Model_Abstract
 
         //check last updated
         $config = Mage::getStoreConfig('pp_section_setttings/settings');
-        $updated = $config['last_carrier_update'];
+        $updated = isset($config['last_carrier_update']) ? $config['last_carrier_update'] : null;
 
         //try to get info from API
         if (!$carriers || !$updated || $updated + self::API_UPDATE_INTERVAL < time()) {

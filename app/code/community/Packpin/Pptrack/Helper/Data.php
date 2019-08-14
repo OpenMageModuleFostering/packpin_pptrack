@@ -163,10 +163,11 @@ class Packpin_Pptrack_Helper_Data extends Mage_Core_Helper_Abstract
      * @param string|null $postalCode
      * @param string|null $destinationCountry
      * @param string|null $shipDate
+     * @param integer|null $orderId
      *
      * @return array
      */
-    public function addTrackingCode($carrierCode, $trackingCode, $description = null, $postalCode = null, $destinationCountry = null, $shipDate = null)
+    public function addTrackingCode($carrierCode, $trackingCode, $description = null, $postalCode = null, $destinationCountry = null, $shipDate = null, $orderId = null)
     {
         $info = array();
 
@@ -178,6 +179,7 @@ class Packpin_Pptrack_Helper_Data extends Mage_Core_Helper_Abstract
             'track_postal_code' => $postalCode,
             'track_ship_date' => $shipDate,
             'track_destination_country' => $destinationCountry,
+            'order_id' => $orderId,
         );
 
         $res = $this->_apiRequest($url, 'POST', $body);

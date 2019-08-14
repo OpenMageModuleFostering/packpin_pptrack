@@ -320,7 +320,8 @@ class Packpin_Pptrack_Model_Track extends Mage_Core_Model_Abstract
                 $this->getCarrierName(),
                 $this->getPostalCode(),
                 $this->getDestinationCountry(),
-                $this->getShipDate()
+                $this->getShipDate(),
+                $this->getOrderId()
             );
 
             //400 statuscode goes for "tracking already in the list"
