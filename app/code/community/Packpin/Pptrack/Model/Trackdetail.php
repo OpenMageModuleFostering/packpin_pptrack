@@ -35,8 +35,27 @@ class Packpin_Pptrack_Model_Trackdetail extends Mage_Core_Model_Abstract
     public function updateInfo($data)
     {
         foreach (self::$mapCols as $field) {
-            if (isset($data[$field]))
-                $this->$field = $data[$field];
+            if (isset($data[$field])) {
+                if ($field == 'address') {
+                    $params = array(
+                        'address',
+                        'state',
+                        'zip',
+                    );
+                    $address = '';
+                    foreach ($params as $param) {
+                        if (isset($data[$param]) && $data[$param]) {
+                            if ($address)
+                                $address .= ', ';
+                            $address .= ' ' . $data[$param];
+                        }
+                    }
+                    $this->$field = $address;
+                }
+                else {
+                    $this->$field = $data[$field];
+                }
+            }
         }
 
         $this->save();
@@ -49,8 +68,8 @@ class Packpin_Pptrack_Model_Trackdetail extends Mage_Core_Model_Abstract
      */
     public function getLocation()
     {
-        if ($this->address)
-            return $this->address;
+//        if ($this->address)
+//            return $this->address;
 
         $params = array(
             'address',
